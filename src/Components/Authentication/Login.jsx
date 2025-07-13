@@ -4,7 +4,9 @@ import loginimg from '/Assets/loginimg.jpg'
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
 import Social from './Social';
+import { useNavigate } from 'react-router';
 const Login = () => {
+   const navigate=useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm();
 const {signin,user,setUser}=use(AuthContext)
   const onSubmit = (data) => {
@@ -19,6 +21,7 @@ const {signin,user,setUser}=use(AuthContext)
         text: `Welcome back, ${res.user.displayName || 'User'} 👋`,
         confirmButtonColor: '#0ea5e9',
       });
+       navigate('/dashboard')
     })
     .catch((err) => {
       Swal.fire({

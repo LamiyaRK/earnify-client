@@ -2,14 +2,62 @@ import React, { use } from 'react';
 import { NavLink } from 'react-router';
 import bannerbg from '/Assets/bg-slider.jpg';
 import { AuthContext } from '../../Context/AuthContext';
+import coin from '/Assets/coin.png'
+import Swal from 'sweetalert2';
+import user1 from '/Assets/user2.jpg'
 const Nav = () => {
-  const {user}=use(AuthContext)
-  
+  const {user,logout}=use(AuthContext)
+  const handlelogout=()=>{
+    logout().then((res) => {
+         
+          Swal.fire({
+            icon: 'success',
+            title: 'Logout Successful!',
+            
+            confirmButtonColor: '#0ea5e9',
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Logout Failed!',
+            text: err.message || 'Something went wrong',
+            confirmButtonColor: '#ef4444',
+          });
+        });
+    
+  }
     const list=<>
     
         <p><NavLink to='/login'><button className='btn btn-neutral btn-outline py-6 px-6 rounded-full'>Login/Register</button></NavLink></p>
         <p><NavLink><button className='btn btn-neutral py-6 px-6 rounded-full' >Join as Developer</button></NavLink></p>
         
+    </>
+    const list1=<>
+     <p><NavLink to='/dashboard'><button >Dashboard</button></NavLink></p>
+      <p><NavLink><button className='btn btn-neutral py-6 px-6 rounded-full' >Join as Developer</button></NavLink></p>
+     <div className='flex items-center gap-1'>
+      <div className="avatar ">
+                    <div className="mask mask-circle h-13 w-13">
+                      <img
+                       src={coin}
+                        alt="Avatar Tailwind CSS Component" className='h-full w-full object-cover' />
+                        
+                    </div>
+                  </div>
+                  <p className='font-medium text-3xl'>{user?.coin||10}</p>
+     </div> 
+     <div className="avatar ">
+                    <div className="mask mask-circle h-10 w-10">
+                      <img
+                       src={user?.photo||user1}
+                        alt="Avatar Tailwind CSS Component" className='h-full w-full object-cover' />
+                        
+                    </div>
+                  </div>
+                 
+    <p><button className='btn btn-neutral btn-outline py-6 px-6 rounded-full' onClick={handlelogout}>Log out</button></p>
+      
     </>
     return (
         <div  style={{ backgroundImage: `url(${bannerbg})` }}
@@ -37,7 +85,7 @@ const Nav = () => {
     </ul>
   </div>
   <div className="navbar-end flex gap-2">
-    {list}
+    {user?list1:list}
   </div>
 </div>
     );

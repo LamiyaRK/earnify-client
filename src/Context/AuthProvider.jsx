@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase.init';
 import { GoogleAuthProvider } from "firebase/auth";
+import axiosinstance from '../Components/Sharedpages/axiosinstance';
 
 const AuthProvider = ({children}) => {
     const provider = new GoogleAuthProvider();
@@ -22,8 +23,7 @@ const AuthProvider = ({children}) => {
       photoURL: photo,
     });
 
-    // Optional: update state (it will also update automatically in onAuthStateChanged)
-    setUser({ ...res.user, displayName: name, photoURL: photo });
+   
 
     return res.user;
   };
@@ -33,21 +33,34 @@ const AuthProvider = ({children}) => {
       return signInWithEmailAndPassword(auth,email,pass)
      }
        
-     useEffect(()=>{
-        const unsubscribe=onAuthStateChanged(auth,(cuser)=>{
-            setUser(cuser)
-            setLoad(false)
-        })
-        return ()=>unsubscribe()
-     },[])
+     useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (cuser) => {
+    if (cuser) {
+      try {
+        const res = await axiosinstance.get(`/users?email=${cuser.email}`);
+        setUser(res.data);
+      } catch {
+        setUser(null);
+      }
+    } else {
+      setUser(null);
+    }
+    setLoad(false);
+  });
+  return () => unsubscribe();
+}, []);
 
+  const logout=()=>{
+   return signOut(auth)
+  }
     const userinfo={
         user,
         signup,
         signin,
         load,
         setUser,
-        gsignup
+        gsignup,
+        logout
 
     }
     
