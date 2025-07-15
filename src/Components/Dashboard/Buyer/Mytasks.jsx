@@ -8,13 +8,13 @@ const Mytasks = () => {
     const {user}=use(AuthContext)
     const [data,setData]=useState([]);
     useEffect(()=>{
-           axiosinstance.get(`/tasks`)
+           axiosinstance.get(`/tasks?email=${user?.email}`)
            .then(res=>{
             setData(res.data)
            }).catch(err=>{
             console.log(err)
            })
-    },[])
+    },[user?.email])
  
     return (
         <div className='w-full bg-secondary '>

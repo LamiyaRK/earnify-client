@@ -18,7 +18,7 @@ const Sidebar = () => {
         <NavLink to='/'><p className='flex  items-end gap-2  hover:bg-secondary p-4 rounded-lg opacity-70'><IoHomeOutline size={24}/>Home</p></NavLink>
          <NavLink to='/dashboard/addtask'><p className='flex  items-end gap-2  hover:bg-secondary p-4 rounded-lg opacity-70'><FaPen size={24}/>Add New Task</p></NavLink>
           <NavLink to='/dashboard/mytasks'><p className='flex  items-end gap-2  hover:bg-secondary p-4 rounded-lg opacity-70'><IoBriefcaseOutline size={24}/>My Tasks</p></NavLink>
-           <NavLink><p className='flex  items-end gap-2  hover:bg-secondary p-4 rounded-lg opacity-70'><BiPurchaseTag size={24}/>Purchase Coin</p></NavLink>
+           <NavLink to='/dashboard/purchasecoin'><p className='flex  items-end gap-2  hover:bg-secondary p-4 rounded-lg opacity-70'><BiPurchaseTag size={24}/>Purchase Coin</p></NavLink>
            <NavLink><p className='flex  items-end gap-2  hover:bg-secondary p-4 rounded-lg opacity-70'><MdOutlinePlaylistAddCheck size={24}/>Payment History</p></NavLink>
     </>
      const listadmin=<>
