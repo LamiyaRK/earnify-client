@@ -6,8 +6,15 @@
   name: "light";
   default: true;
   --color-primary: #FDF8F0;
-  --color-secondary: #b6e3d450;
+  --color-secondary: #b6e3d410;
   --color-accent: #34A853;
-  --color-primary-content:#ccf5ef;
+  --color-primary-content:#b6e3d450;
   
 }
+/* 🧱 Make sure base height is correct */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+

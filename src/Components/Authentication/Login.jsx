@@ -35,9 +35,9 @@ const {signin,user,setUser}=use(AuthContext)
 
 
   return (
-    <div style={{ backgroundColor: '#ccf5ef' }}>
+    <div style={{ backgroundColor: '#ccf5ef' }} className='min-h-screen flex items-center justify-center '>
     <section
-      className="w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center min-h-screen p-6"
+      className="w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center h-screen "
       
     >
       {/* Left side image */}
@@ -45,7 +45,7 @@ const {signin,user,setUser}=use(AuthContext)
         <img
           src={loginimg} // Replace with a better micro-tasking-related image if needed
           alt="Task Image"
-          className="w-full h-auto max-h-[500px] object-center object-cover"
+          className="w-full  max-h-[500px] object-center object-cover"
         />
       </div>
 

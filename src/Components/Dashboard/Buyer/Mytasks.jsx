@@ -19,6 +19,7 @@ const Mytasks = () => {
     return (
         <div className='w-full bg-secondary '>
          <h1 className='text-3xl font-semibold text-center  py-20'>My Tasks</h1>
+           <p className='  text-center py-5 font-semibold opacity-70' > Browse and apply for tasks that match your skills</p>
             <div className="overflow-x-auto">
   <table className="table w-5/6 mx-auto  bg-white p-10 rounded-lg">
     {/* head */}

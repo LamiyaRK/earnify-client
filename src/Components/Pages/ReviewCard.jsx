@@ -6,7 +6,7 @@ const ReviewCard = ({review}) => {
     return (
         <div className="">
             <p className='text-lg text-accent font-semibold mb-5'>{title}</p>
-             <p className='opacity-70 font-semibold'>{description}</p>
+             <p className='opacity-70 max-w-2xl font-semibold'>{description}</p>
              <div className='flex gap-2 items-center self-start justify-start mt-10'>
                 <div className="avatar">
   <div className="w-[49px] h-[49px] rounded-full">

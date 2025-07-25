@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axiosinstance from '../../Sharedpages/axiosinstance';
 import { AuthContext } from '../../../Context/AuthContext';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+import { useNavigate} from 'react-router';
 
 const PostTask = () => {
   const { register, handleSubmit, reset } = useForm();
   const [imageUrl, setImageUrl] = useState('');
   const [uploading, setUploading] = useState(false);
-  const { user } = React.useContext(AuthContext);
+  const { user,setUser } = use(AuthContext);
+  const navigate=useNavigate()
   const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
 
   const handleImageUpload = async (e) => {
@@ -35,24 +38,41 @@ const PostTask = () => {
 
   const onSubmit = (data) => {
     if (!user?.email) return;
+    const tamount=data.payable_amount*data.required_workers
+    if(user?.coin<tamount)
+    {
+      toast.error("Not available Coin.  Purchase Coin")
+     return navigate('/dashboard/purchasecoin')
+
+    }
 
     const taskData = {
       ...data,
       task_image_url: imageUrl,
-      email: user?.email,
+      user_email: user?.email,
     };
 
     axiosinstance.post('/tasks', taskData)
       .then(res => {
-        Swal.fire({
+         axiosinstance.patch('/users',{
+          email:user?.email,
+          addcoin:-tamount}).then(res1=>{
+            Swal.fire({
           icon: 'success',
           title: 'Task Posted!',
           text: 'Your task has been successfully added.',
           timer: 2000,
           showConfirmButton: false
         });
+        setUser(prev=>({
+          ...prev,
+          coin:prev.coin-tamount
+         }))
         reset();
         setImageUrl('');
+
+          })
+        
       })
       .catch(err => {
         Swal.fire({
@@ -87,10 +107,10 @@ const PostTask = () => {
         {/* Task Detail */}
         <div className="lg:col-span-2">
           <label className="block mb-1 font-medium">
-            Task Details <span className="text-red-500">*</span>
+            Task Details 
           </label>
           <textarea
-            {...register('task_detail', { required: true })}
+            {...register('task_detail', { required: false })}
             placeholder="Detailed description of the task"
             className="textarea textarea-bordered w-full h-24 bg-secondary text-base"
           ></textarea>
@@ -103,7 +123,7 @@ const PostTask = () => {
           </label>
           <input
             type="number"
-            {...register('required_workers', { required: true })}
+            {...register('required_workers', { required: true,min:1 })}
             placeholder="e.g. 100"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
@@ -116,7 +136,7 @@ const PostTask = () => {
           </label>
           <input
             type="number"
-            {...register('payable_amount', { required: true })}
+            {...register('payable_amount', { required: true,min:1 })}
             placeholder="e.g. 10"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
@@ -137,11 +157,11 @@ const PostTask = () => {
         {/* Submission Info */}
         <div>
           <label className="block mb-1 font-medium">
-            Submission Info <span className="text-red-500">*</span>
+            Submission Info 
           </label>
           <input
             type="text"
-            {...register('submission_info', { required: true })}
+            {...register('submission_info', { required: false })}
             placeholder="e.g. Screenshot or proof"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
@@ -171,7 +191,7 @@ const PostTask = () => {
         {/* Image Upload */}
         <div className="lg:col-span-2">
           <label className="block mb-1 font-medium">
-            Upload Task Image <span className="text-red-500">*</span>
+            Upload Task Image 
           </label>
           <input
             type="file"

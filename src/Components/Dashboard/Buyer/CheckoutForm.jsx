@@ -2,9 +2,10 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { use, useEffect, useState } from 'react';
 import axiosinstance from '../../Sharedpages/axiosinstance';
 import { AuthContext } from '../../../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 const CheckoutForm = ({closeModal,price,coins}) => {
-  const {user}=use(AuthContext)
+  const {user,setUser}=use(AuthContext)
    const stripe = useStripe();
   const elements = useElements();
 const [cerror,setcError]=useState(null)
@@ -23,7 +24,10 @@ useEffect(()=>{
     setClientSecret(data?.clientSecret)
   }
 getClientSecret()
-},[axiosinstance,coins,price])
+
+
+ 
+},[coins,price])
 
 
 
@@ -75,9 +79,48 @@ getClientSecret()
     if(result?.error)
     {
       setcError(result?.error.message)
+      setProcessing(false)
       return
     }
     if(result?.paymentIntent?.status==="succeeded")
+    {
+      const ordersdata={
+coinamount:coins,
+user_email:user?.email,
+price,
+payment_id:result?.paymentIntent?.id,
+time: new Date()
+      }
+        axiosinstance.post('/orders',ordersdata)
+        .then(res=>{
+        
+         axiosinstance.patch('/users',{
+          email:user?.email,
+          addcoin:coins})
+         .then(res=>{
+            toast("Purchase Successful",{
+            theme:'colored',
+            type:'success'
+          })
+                
+         })
+         setUser(prev=>({
+          ...prev,
+          coin:prev.coin+coins
+         }))
+           setProcessing(false)
+          closeModal();
+         
+        })
+        .catch(err=>{
+          toast("Purchase failed",{
+            theme:'colored',
+            type:'success'
+          })
+           setProcessing(false)
+        })
+      
+    }
 
   };
 

@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import bannerbg from '/Assets/bg-slider.jpg';
 import { AuthContext } from '../../Context/AuthContext';
 import coin from '/Assets/coin.png'
@@ -29,12 +29,13 @@ const Nav = () => {
   }
     const list=<>
     
-        <p><NavLink to='/login'><button className='btn btn-neutral btn-outline py-6 px-6 rounded-full'>Login/Register</button></NavLink></p>
-        <p><NavLink><button className='btn btn-neutral py-6 px-6 rounded-full' >Join as Developer</button></NavLink></p>
+        <p><NavLink to='/login'><button className='btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black'>Login</button></NavLink></p>
+        <p><NavLink to='/register'><button className='btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black'>Register</button></NavLink></p>
+        <p><NavLink><button className='btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black' >Join as Developer</button></NavLink></p>
         
     </>
     const list1=<>
-     <p><NavLink to='/dashboard'><button >Dashboard</button></NavLink></p>
+     <p><NavLink to='/dashboard'><button className='text-lg font-semibold border-b-2'>Dashboard</button></NavLink></p>
       <p><NavLink><button className='btn btn-neutral py-6 px-6 rounded-full' >Join as Developer</button></NavLink></p>
      <div className='flex items-center gap-1'>
       <div className="avatar ">
@@ -56,7 +57,7 @@ const Nav = () => {
                     </div>
                   </div>
                  
-    <p><button className='btn btn-neutral btn-outline py-6 px-6 rounded-full' onClick={handlelogout}>Log out</button></p>
+    <p><button className='btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black' onClick={handlelogout}>Log out</button></p>
       
     </>
     return (
@@ -73,10 +74,10 @@ const Nav = () => {
       
       </ul>
     </div>
-    <div className="flex items-center gap-2 text-2xl font-bold">
+ <Link to='/'>  <div className="flex items-center gap-2 text-2xl font-bold">
   <img src="/logo.png" alt="Earnify Logo" className="w-10 h-10" />
-  <span>Earnify</span>
-</div>
+  <span>Earnify</span> 
+</div></Link>
 
   </div>
   <div className="navbar-center hidden lg:flex">

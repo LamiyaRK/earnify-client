@@ -6,16 +6,16 @@ const Review = () => {
     
 
     return (
-      <div className='py-20'>
+      <div data-aos="fade-up" data-aos-duration="1500" className='py-20 w-5/6 mx-auto'>
       <h1 className='text-3xl font-semibold text-center'>What Our Users Say</h1>
       <p className='text-center opacity-70 font-medium mt-5 mb-20'>Hear from the people who’ve experienced Earnify — real stories, real success, and how micro-tasking changed their lives.</p>
-        <div className='flex max-w-7xl justify-center items-center gap-5 mx-auto'> 
-          <div className='w-[50%]'>
-            <img src={customer} className='w-[500px] h-[500px] object-cover object-center rounded-lgc:\Users\MSI\Downloads\photo-1521737711867-e3b97375f902.jpg'></img>
+        <div className='flex flex-col lg:flex-row justify-between items-center  '> 
+          <div className='w-full lg:w-[50%]'>
+            <img src={customer} className='w-[500px] h-[500px] object-cover object-center rounded-lg'></img>
           </div>
-         
+         <div className='w-full lg:w-[50%]'>
           <ReviewSlider ></ReviewSlider> 
-          
+          </div>
   
           
         </div>

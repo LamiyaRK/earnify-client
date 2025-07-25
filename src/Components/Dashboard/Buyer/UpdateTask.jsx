@@ -10,6 +10,7 @@ const UpdateTask = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [uploading, setUploading] = useState(false);
   const { user } = useContext(AuthContext);
+
   const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
   const [data, setData] = useState(null);
   const { id } = useParams();
@@ -56,7 +57,7 @@ const { _id, ...rest } = formData;
     const taskData = {
       ...rest,
       task_image_url: imageUrl,
-      email: user?.email
+      user_email: user?.email
     };
 
     axiosinstance.put(`/tasks?id=${id}`, taskData)
