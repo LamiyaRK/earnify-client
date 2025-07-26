@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -44,5 +46,9 @@ html, body, #root {
 * {
   box-sizing: border-box;
 }
-
-
+h1{
+   font-family: "Playfair Display", serif;
+}
+body{
+    font-family: "Inter", sans-serif;
+}
