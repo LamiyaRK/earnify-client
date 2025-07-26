@@ -20,6 +20,7 @@ import WorkerHome from "../Dashboard/Worker/WorkerHome";
 import Withdraw from "../Dashboard/Worker/Withdraw";
 import Errorpage from "../Pages/Errorpage";
 import { AdminRoute, BuyerRoute, WorkerRoute } from "./PrivateRoute";
+import Unauthorized from "../Pages/Unauthorized";
 
 export const router = createBrowserRouter([
   {
@@ -43,9 +44,7 @@ export const router = createBrowserRouter([
   {
     path: "/unauthorized",
     element: (
-      <div className="text-center text-red-500 text-3xl mt-10">
-        Unauthorized Access
-      </div>
+      <Unauthorized></Unauthorized>
     ),
   },
   {

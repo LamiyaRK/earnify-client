@@ -55,12 +55,9 @@ const {signin,user,setUser,setLoad}=use(AuthContext)
 
 
   return (
-    <div style={{ backgroundColor: '#ccf5ef' }} className=' flex items-center justify-center overflow-y-hidden h-full border-2 border-red-200 '>
-    <section
-      className="w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center  "
+    <div style={{ backgroundColor: '#ccf5ef' }} >
+    <section className="w-[95%] lg:w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center min-h-screen p-6 ">
       
-    >
-      {/* Left side image */}
       <div className="hidden lg:flex max-w-[400px] lg:w-1/2 mb-10 lg:mb-0">
         <img
           src={loginimg} // Replace with a better micro-tasking-related image if needed
