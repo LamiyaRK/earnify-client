@@ -33,7 +33,7 @@ const PurchaseCoin = () => {
         <div className='bg-secondary w-full h-full pb-20'>
          <h1 className='text-3xl font-semibold text-center pt-20'>Purchase Coin</h1>
          <p className='  text-center py-5 opacity-70 font-semibold'> Select a coin package and complete payment</p>
-         <div className=' grid grid-cols-4 px-10 py-5 gap-5'>
+         <div className=' grid md:grid-cols-2 2xl:grid-cols-4 px-10 py-5 gap-5'>
             {
                 coinarr.map((coin,index)=><CoinCard coin={coin} key={index}></CoinCard>)
             }

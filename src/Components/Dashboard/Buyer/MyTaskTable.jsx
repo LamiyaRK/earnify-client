@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { use } from 'react';
 import del from '/Assets/delete.png'
 import edi from '/Assets/edit.png'
 import { Link, NavLink } from 'react-router';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../../Context/AuthContext';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 const MyTaskTable = ({index,da,data,setData}) => {
+   const axiosSecure = useAxiosSecure()
+  const {user,setUser}=use(AuthContext)
    const{
     
 task_title
@@ -36,10 +40,24 @@ const handleDelete=(id)=>{
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    axiosinstance.delete(`/tasks?id=${id}`).
+    axiosSecure.delete(`/tasks1?id=${id}`).
    then(res=>{
-      const newdata=data.filter(dat=>dat._id!==id)
+    const tamount=required_workers*payable_amount;
+    axiosSecure.patch(`/users1`,{email:user?.email,addcoin:tamount})
+    .then(res1=>{
+ const newdata=data.filter(dat=>dat._id!==id)
       setData(newdata)
+      setUser(prev => ({
+  ...prev,
+  coin: prev.coin + tamount,
+}));
+
+    })
+     
+      
+
+
+
      }).catch(err=>{
       toast(err,{
         theme:'colored',

@@ -1,36 +1,50 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { AuthContext } from '../../../Context/AuthContext';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import HomeTable from './HomeTable';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const BuyerHome = () => {
+   const axiosSecure = useAxiosSecure()
   const { user } = useContext(AuthContext);
   const [workers, setWorkers] = useState(0);
   const [taskcount, setTaskcount] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
   const [data,setData]=useState([])
+const fetchSubmissions = () => {
+    axiosSecure(`/submission1?email=${user?.email}&status=pending`)
+      .then(res => {
+        setData(res.data);
+      })
+      .catch(err => console.log(err));
 
+      axiosSecure(`/total-required-workers?email=${user?.email}`)
+      .then(res => {
+        setWorkers(res.data.totalRequiredWorkers);
+      })
+      .catch(err => console.log(err));
+  };
   useEffect(() => {
-    axiosinstance(`/total-required-workers?email=${user?.email}`)
+    axiosSecure(`/total-required-workers?email=${user?.email}`)
       .then(res => {
         setWorkers(res.data.totalRequiredWorkers);
       })
       .catch(err => console.log(err));
 
-    axiosinstance(`/tasks?email=${user?.email}`)
+    axiosSecure(`/tasks?email=${user?.email}`)
       .then(res => {
         setTaskcount(res.data.length);
       })
       .catch(err => console.log(err));
 
-    axiosinstance(`/total-payment?email=${user?.email}`)
+    axiosSecure(`/total-payment?email=${user?.email}`)
       .then(res => {
         setTotalPayment(res.data.totalPayment);
       })
       .catch(err => console.log(err));
-      axiosinstance(`/submission?email=${user?.email}&status=pending`)
+      axiosSecure(`/submission1?email=${user?.email}&status=pending`)
       .then(res => {
         setData(res.data);
       })
@@ -39,7 +53,7 @@ const BuyerHome = () => {
 
   const cards = [
     {
-      label: 'Total Workers',
+      label: 'Pending tasks',
       value: workers,
       color: '#4F46E5',
       tailwindColor: 'text-blue-500',
@@ -62,8 +76,8 @@ const BuyerHome = () => {
   ];
 
   return (
-    <div className='w-full'>
-    <div className="p-6 grid grid-cols-3 gap-6 w-5/6 mx-auto">
+    <div className='w-full bg-secondary h-full'>
+    <div className="p-6 grid lg:grid-cols-3 gap-6 w-5/6 mx-auto py-20">
       {cards.map((card, idx) => (
         <div key={idx} className="bg-white shadow-md h-[150px] w-full rounded-xl px-6 py-4 flex items-center justify-between">
         <div>
@@ -87,8 +101,9 @@ const BuyerHome = () => {
         </div>
       ))}
     </div>
-     <div className="overflow-x-auto">
-        <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border border-gray-100">
+    {data.length>0? 
+    <div className="overflow-x-auto py-20 ">
+        <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border-2  border-accent">
           {/* head */}
           <thead>
             <tr className='text-xl'>
@@ -102,12 +117,17 @@ const BuyerHome = () => {
           <tbody>
             {
               data.map((da, index) => (
-               <HomeTable da={da} index={index}></HomeTable>
+               <HomeTable da={da} index={index} refetch={fetchSubmissions}></HomeTable>
               ))
             }
           </tbody>
         </table>
-      </div>
+      </div>:
+       <div >
+        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold pb-20'>No Tasks To Review</p>
+      </div>}
+      
+    
     </div>
   );
 };

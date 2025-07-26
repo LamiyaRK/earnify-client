@@ -5,10 +5,12 @@ import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
 import Social from './Social';
 import { toast } from 'react-toastify';
-import axiosinstance from '../Sharedpages/axiosinstance';
+
 import { useNavigate } from 'react-router';
+import useAxiosSecure from '../Sharedpages/useAxiosSecure';
 
 const Register = () => {
+  const axiosSecure = useAxiosSecure()
   const navigate = useNavigate();
   const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
   const { signup, setUser } = useContext(AuthContext);
@@ -42,47 +44,57 @@ const Register = () => {
   };
 
   const onSubmit = async (data) => {
-    setEmailExists(false);
-    const { email, password, name, role } = data;
-    const coin = role === 'Buyer' ? 50 : 10;
+  setEmailExists(false);
+  const { email, password, name, role } = data;
+  const coin = role === 'Buyer' ? 50 : 10;
 
-    try {
-      const user = await signup(email, password, name, imageUrl);
+  try {
+    const res = await signup(email, password, name, imageUrl);
 
-      const userInfo = {
-        name,
-        email,
-        role,
-        coin,
-        photo: imageUrl,
-      };
+    const userInfo = {
+      name,
+      email,
+      role,
+      coin,
+      photo: imageUrl,
+    };
 
-      await axiosinstance.post('/users', userInfo);
-      setUser(userInfo);
+    await axiosSecure.post('/users', userInfo);
+    setUser(userInfo);
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful!',
-        confirmButtonColor: '#0ea5e9',
-      }).then(() => navigate('/dashboard'));
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Registration Failed',
-        text: error.message,
-        confirmButtonColor: '#ef4444',
-      });
-    }
-  };
+    Swal.fire({
+      icon: 'success',
+      title: 'Registration Successful!',
+      confirmButtonColor: '#0ea5e9',
+    }).then(() => {
+      if (role === 'Admin') {
+        navigate('/dashboard/adminhome');
+      } else if (role === 'Buyer') {
+        navigate('/dashboard/buyerhome');
+      } else {
+        navigate('/dashboard/workerhome');
+      }
+    });
+
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Registration Failed',
+      text: error.message,
+      confirmButtonColor: '#ef4444',
+    });
+  }
+};
+
 
   return (
     <div style={{ backgroundColor: '#ccf5ef' }}>
-      <section className="w-[95%] lg:w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center min-h-screen p-6">
-        <div className="lg:max-w-[400px] hidden lg:flex lg:w-1/2">
-          <img src={loginimg} alt="Login visual" className="w-full h-[710px] object-cover" />
+      <section className="w-[95%] lg:w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center min-h-screen p-6 ">
+        <div className={`lg:max-w-[400px] hidden lg:flex lg:w-1/2 ${imageUrl?"h-[710px]":"h-[600px]"} `}>
+          <img src={loginimg} alt="Login visual" className={`w-full  object-cover h-full` }/>
         </div>
 
-        <div className="w-full lg:w-1/2 bg-white p-8 rounded-lg shadow-xl lg:max-w-md">
+        <div className={`w-full lg:w-1/2 bg-white p-8 rounded-lg shadow-xl lg:max-w-md ${imageUrl?"h-[710px]":"h-[600px]"}`} >
           <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

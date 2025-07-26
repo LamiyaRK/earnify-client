@@ -1,11 +1,12 @@
 import React from 'react';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const ManageUsersTable = ({ da, index, refetch }) => {
   const { _id, name, email, role, coin, photo } = da;
-
+ const axiosSecure = useAxiosSecure()
   const handleDelete = () => {
     Swal.fire({
       title: 'Are you sure?',
@@ -18,7 +19,7 @@ const ManageUsersTable = ({ da, index, refetch }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await axiosinstance.delete(`/users?id=${_id}`);
+          const res = await axiosSecure.delete(`/users?id=${_id}`);
           if (res.data.deletedCount > 0) {
             Swal.fire('Removed!', 'User has been deleted.', 'success');
             refetch(); // refresh the table
@@ -34,7 +35,7 @@ const ManageUsersTable = ({ da, index, refetch }) => {
   const handleRoleChange = async (e) => {
     const newRole = e.target.value;
     try {
-      const res = await axiosinstance.patch(`/users?id=${_id}`, { role: newRole });
+      const res = await axiosSecure.patch(`/users?id=${_id}`, { role: newRole });
       if (res.data.modifiedCount > 0) {
         toast.success('Role updated successfully!');
         refetch();

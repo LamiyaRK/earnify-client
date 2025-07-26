@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import ManageUsersTable from './ManageUsersTable';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const ManageUsers = () => {
   const [data, setData] = useState([]);
-
+ const axiosSecure = useAxiosSecure()
   const refetch = () => {
-    axiosinstance.get('/users')
+    axiosSecure.get('/users3')
       .then(res => {
         setData(res.data);
       })
@@ -21,12 +22,13 @@ const ManageUsers = () => {
 
   return (
     <div className="w-full bg-secondary pb-20">
+    <div className='w-5/6 mx-auto'>
       <h1 className="text-3xl font-semibold text-center py-20">Manage Users</h1>
       <div className="overflow-x-auto">
-        <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg">
+        <table className="table  bg-white p-10 rounded-lg border-2 border-accent">
           {/* head */}
           <thead>
-            <tr>
+            <tr className='text-xl '>
               <th className="text-accent ">Sl. no.</th>
               <th className="text-accent w-1/5">User Info</th>
               <th className="text-accent ">Role</th>
@@ -48,6 +50,7 @@ const ManageUsers = () => {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };

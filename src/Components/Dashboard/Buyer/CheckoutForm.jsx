@@ -1,10 +1,12 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { use, useEffect, useState } from 'react';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { AuthContext } from '../../../Context/AuthContext';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const CheckoutForm = ({closeModal,price,coins}) => {
+   const axiosSecure = useAxiosSecure()
   const {user,setUser}=use(AuthContext)
    const stripe = useStripe();
   const elements = useElements();
@@ -16,7 +18,7 @@ useEffect(()=>{
 
   const getClientSecret=async()=>{
 
-    const {data}=await axiosinstance.post('/create-payment-intent',{
+    const {data}=await axiosSecure.post('/create-payment-intent',{
       coins,
       price
 
@@ -91,10 +93,10 @@ price,
 payment_id:result?.paymentIntent?.id,
 time: new Date()
       }
-        axiosinstance.post('/orders',ordersdata)
+        axiosSecure.post('/orders',ordersdata)
         .then(res=>{
         
-         axiosinstance.patch('/users',{
+         axiosSecure.patch('/users1',{
           email:user?.email,
           addcoin:coins})
          .then(res=>{

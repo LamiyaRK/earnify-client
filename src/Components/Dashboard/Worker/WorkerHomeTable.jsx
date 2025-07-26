@@ -21,7 +21,7 @@ const WorkerHomeTable = ({da,index}) => {
         <td>{task_title}</td>
         <td>{payable_amount}</td>
         <td>{Buyer_name}</td>
-        <td>{status}</td>
+        <td className='badge badge-success mt-2 text-white'>approved</td>
         
         
       </tr>

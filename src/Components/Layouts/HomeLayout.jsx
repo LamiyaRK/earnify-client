@@ -6,9 +6,9 @@ import Footer from '../Sharedpages/Footer';
 
 const HomeLayout = () => {
     return (
-        <div className='h-full flex flex-col '>
+        <div >
             <Nav></Nav>
-            <div className='flex-grow'>
+            <div >
             <Outlet ></Outlet>
             </div>
            <ToastContainer></ToastContainer>

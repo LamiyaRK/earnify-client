@@ -1,11 +1,13 @@
 import React, { use } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
 import { FaCoins, FaDollarSign } from 'react-icons/fa';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const Withdraw = () => {
+   const axiosSecure = useAxiosSecure()
     const { register, handleSubmit, setValue } = useForm();
 
     const {user}=use(AuthContext)
@@ -22,7 +24,7 @@ const Withdraw = () => {
     status: "pending"
   };
 
-  axiosinstance.post('/withdraw', withdrawalData)
+  axiosSecure.post('/withdraw', withdrawalData)
     .then(res => {
       toast.success("Withdrawal request submitted!");
     
@@ -31,8 +33,9 @@ const Withdraw = () => {
 };
 
     return (
-        <div className='w-full'>
-             <div className='grid grid-cols-2 gap-5 w-5/6 mx-auto my-20 '>
+        <div className='w-full bg-secondary'>
+        <div className='w-5/6 mx-auto py-20'> 
+             <div className='grid md:grid-cols-2 gap-5   '>
                         <div className='flex p-5 items-center shadow-lg rounded-lg  justify-between gap-5'>
                             <div className='p-5 bg-amber-400 text-white rounded-lg '><FaCoins size={30} /></div>
                             <div className='flex-col flex flex-end'>
@@ -48,10 +51,11 @@ const Withdraw = () => {
                            </div>
                         </div>
                         </div>
-                        <h1 className='text-3xl font-semibold text-center py-20'>Withdraw Amount</h1>
+                        <h1 className='text-3xl font-semibold text-center pt-20'>Withdraw Amount</h1>
+                        <p className='  text-center py-5 font-semibold opacity-70 pb-20' > Request to withdraw your earnings securely and easily.</p>
      <form
   onSubmit={handleSubmit(onSubmit)}
-  className="space-y-4 grid lg:grid-cols-2 border-2 border-accent gap-6 w-5/6 mx-auto bg-white p-10 rounded-lg"
+  className="space-y-4 grid lg:grid-cols-2 border-2 border-accent gap-6  bg-white p-10 rounded-lg"
 >
   {/* Coin to Withdraw */}
   <div className="lg:col-span-2">
@@ -130,7 +134,7 @@ const Withdraw = () => {
     </p>
   )}
 </form>
-
+</div>
         </div>
     );
 };

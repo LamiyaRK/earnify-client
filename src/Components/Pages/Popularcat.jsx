@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import axiosinstance from '../Sharedpages/axiosinstance';
+import React, { use, useEffect, useState } from 'react';
+
 import CatCard from './CatCard';
+import useAxiosSecure from '../Sharedpages/useAxiosSecure';
+
 
 
 const Popularcat = () => {
+     const axiosSecure = useAxiosSecure()
     const [data,setData]=useState([])
+   
     useEffect(()=>{
-        axiosinstance.get('/categories')
+        axiosSecure.get('/categories')
         .then(res=>setData(res.data))
         .catch(err=>console.log(err))
     },[])

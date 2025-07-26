@@ -1,10 +1,12 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { FaClock, FaCoins, FaDollarSign, FaUser, FaUsersRectangle } from "react-icons/fa6";
 import AdminHomeTable from './AdminHomeTable';
 import { ToastContainer } from 'react-toastify';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 const AdminHome = () => {
+   const axiosSecure = useAxiosSecure()
     const {user}=use(AuthContext)
     const [buyer,setBuyer]=useState(0)
      const [worker,setWorker]=useState(0)
@@ -13,23 +15,23 @@ const AdminHome = () => {
      const[data,setData]=useState([])
      
    useEffect(() => {
-  axiosinstance.get(`/users?role=Buyer`)
+  axiosSecure.get(`/users3?role=Buyer`)
     .then(res => setBuyer(res.data.length))
     .catch(err => console.log(err));
 
-  axiosinstance.get(`/users?role=Worker`)
+  axiosSecure.get(`/users3?role=Worker`)
     .then(res => setWorker(res.data.length))
     .catch(err => console.log(err));
 
-  axiosinstance.get(`/totalcoins`)
+  axiosSecure.get(`/totalcoins`)
     .then(res => setTcoins(res.data))
     .catch(err => console.log(err));
  
-axiosinstance.get('/totaldollars')
+axiosSecure.get('/totaldollars')
 .then(res=>setTdollars(res.data))
 .catch(err=>console.log(err))
 
-axiosinstance.get('/withdraw')
+axiosSecure.get('/withdraw')
 .then(res=>setData(res.data))
 .catch(err=>console.log(err))
 }, []);
@@ -37,7 +39,7 @@ axiosinstance.get('/withdraw')
     //console.log(buyer,worker)
     return (
         <div className='w-full'>
-             <div className='grid grid-cols-4 gap-5 w-5/6 mx-auto my-20 '>
+             <div className='grid md:grid-cols-2 2xl:grid-cols-4 gap-5 w-5/6 mx-auto my-20 '>
                                     <div className='flex p-5 items-center shadow-lg rounded-lg  justify-between gap-5'>
                                         <div className='p-5 bg-blue-500 text-white rounded-lg '><FaUsersRectangle size={30}/></div>
                                         <div className='flex-col flex flex-end'>
@@ -71,7 +73,7 @@ axiosinstance.get('/withdraw')
                                     
                                  
                                      <div className="overflow-x-auto">
-                                     <h1 className='text-3xl font-semibold text-center'>Withdraw Requestes</h1>
+                                     <h1 className='text-3xl font-semibold text-center pb-20'>Withdraw Requestes</h1>
         <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border border-gray-100">
           {/* head */}
           <thead>

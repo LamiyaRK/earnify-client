@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { Image } from 'lucide-react'; // or use any icon
 import { AuthContext } from '../../../Context/AuthContext';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const TaskDetails = () => {
+   const axiosSecure = useAxiosSecure()
   const { id } = useParams();
   const [data, setData] = useState({});
   const [submissionText, setSubmissionText] = useState('');
@@ -15,8 +17,8 @@ const TaskDetails = () => {
 const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
   // Fetch task details
   useEffect(() => {
-    axiosinstance
-      .get(`/tasks?id=${id}`)
+    axiosSecure
+      .get(`/tasks2?id=${id}`)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   }, [id]);
@@ -88,7 +90,7 @@ const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
     };
 
     try {
-      await axiosinstance.post('/submission', submissionPayload);
+      await axiosSecure.post('/submission', submissionPayload);
       toast('Submission sent successfully!', { type: 'success', theme: 'colored' });
       
       setSubmissionText('');

@@ -1,13 +1,15 @@
 import React, { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { AuthContext } from '../../../Context/AuthContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { useNavigate} from 'react-router';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const PostTask = () => {
-  const { register, handleSubmit, reset } = useForm();
+   const axiosSecure = useAxiosSecure()
+  const { register, handleSubmit, reset,formState: { errors }  } = useForm();
   const [imageUrl, setImageUrl] = useState('');
   const [uploading, setUploading] = useState(false);
   const { user,setUser } = use(AuthContext);
@@ -38,23 +40,33 @@ const PostTask = () => {
 
   const onSubmit = (data) => {
     if (!user?.email) return;
-    const tamount=data.payable_amount*data.required_workers
+    const required_workers = parseInt(data.required_workers);
+  const payable_amount = parseInt(data.payable_amount);
+  
+
+    const tamount=payable_amount*required_workers
     if(user?.coin<tamount)
     {
-      toast.error("Not available Coin.  Purchase Coin")
+      toast("Not available Coin.  Purchase Coin",{
+       
+        type:'error'
+      })
      return navigate('/dashboard/purchasecoin')
 
     }
 
     const taskData = {
-      ...data,
-      task_image_url: imageUrl,
-      user_email: user?.email,
-    };
+  ...data,
+  required_workers,
+  payable_amount,
+  task_image_url: imageUrl,
+  user_email: user?.email,
+};
 
-    axiosinstance.post('/tasks', taskData)
+
+    axiosSecure.post('/tasks', taskData)
       .then(res => {
-         axiosinstance.patch('/users',{
+         axiosSecure.patch('/users1',{
           email:user?.email,
           addcoin:-tamount}).then(res1=>{
             Swal.fire({
@@ -85,11 +97,14 @@ const PostTask = () => {
   };
 
   return (
-    <div className='bg-secondary w-full h-full pb-20'>
-      <h1 className='text-3xl font-semibold text-center py-20'>Add Task</h1>
+    <div className="bg-secondary w-full min-h-screen pb-20">
+      <h1 className="text-3xl font-semibold text-center pt-20">Add Task</h1>
+      <p className="text-center py-5 opacity-70 font-semibold pb-20">
+        Fill in the task details, set your requirements, and post the task for workers to complete.
+      </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 grid lg:grid-cols-2 gap-6 w-5/6 mx-auto bg-white p-10 rounded-lg"
+        className="space-y-4 grid lg:grid-cols-2 gap-6 w-5/6 mx-auto bg-white p-10 rounded-lg border-accent border-2"
       >
         {/* Task Title */}
         <div className="lg:col-span-2">
@@ -98,19 +113,18 @@ const PostTask = () => {
           </label>
           <input
             type="text"
-            {...register('task_title', { required: true })}
+            {...register('task_title', { required: 'Task Title is required' })}
             placeholder="e.g. Watch my YouTube video and comment"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
+          {errors.task_title && <p className="text-red-500 mt-1">{errors.task_title.message}</p>}
         </div>
 
-        {/* Task Detail */}
+        {/* Task Detail (Optional) */}
         <div className="lg:col-span-2">
-          <label className="block mb-1 font-medium">
-            Task Details 
-          </label>
+          <label className="block mb-1 font-medium">Task Details</label>
           <textarea
-            {...register('task_detail', { required: false })}
+            {...register('task_detail')}
             placeholder="Detailed description of the task"
             className="textarea textarea-bordered w-full h-24 bg-secondary text-base"
           ></textarea>
@@ -123,10 +137,16 @@ const PostTask = () => {
           </label>
           <input
             type="number"
-            {...register('required_workers', { required: true,min:1 })}
+            {...register('required_workers', {
+              required: 'Required Workers is required',
+              min: { value: 1, message: 'Minimum 1 worker is required' },
+            })}
             placeholder="e.g. 100"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
+          {errors.required_workers && (
+            <p className="text-red-500 mt-1">{errors.required_workers.message}</p>
+          )}
         </div>
 
         {/* Payable Amount */}
@@ -136,10 +156,16 @@ const PostTask = () => {
           </label>
           <input
             type="number"
-            {...register('payable_amount', { required: true,min:1 })}
+            {...register('payable_amount', {
+              required: 'Payable amount is required',
+              min: { value: 1, message: 'Minimum amount is 1' },
+            })}
             placeholder="e.g. 10"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
+          {errors.payable_amount && (
+            <p className="text-red-500 mt-1">{errors.payable_amount.message}</p>
+          )}
         </div>
 
         {/* Completion Date */}
@@ -149,50 +175,51 @@ const PostTask = () => {
           </label>
           <input
             type="date"
-            {...register('completion_date', { required: true })}
+            {...register('completion_date', { required: 'Completion date is required' })}
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
+          {errors.completion_date && (
+            <p className="text-red-500 mt-1">{errors.completion_date.message}</p>
+          )}
         </div>
 
-        {/* Submission Info */}
+        {/* Submission Info (Optional) */}
         <div>
-          <label className="block mb-1 font-medium">
-            Submission Info 
-          </label>
+          <label className="block mb-1 font-medium">Submission Info</label>
           <input
             type="text"
-            {...register('submission_info', { required: false })}
+            {...register('submission_info')}
             placeholder="e.g. Screenshot or proof"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
         </div>
 
-        {/* Category Dropdown */}
+        {/* Category */}
         <div>
           <label className="block mb-1 font-medium">
             Category <span className="text-red-500">*</span>
           </label>
           <select
-            {...register('category', { required: true })}
+            {...register('category', { required: 'Category is required' })}
             className="select select-bordered w-full h-12 bg-secondary text-base"
           >
-           <option value="Video Engagement">Video Engagement</option>
-  <option value="Content Writing">Content Writing</option>
-  <option value="Translation">Translation</option>
-  <option value="Image Handling">Image Handling</option>
-  <option value="App & Website Testing">App & Website Testing</option>
-  <option value="Creative Design">Creative Design</option>
-  <option value="Data Entry">Data Entry</option>
-  <option value="SEO & Marketing">SEO & Marketing</option>
-  <option value="Survey & Feedback">Survey & Feedback</option>
+            <option value="">Select Category</option>
+            <option value="Video Engagement">Video Engagement</option>
+            <option value="Content Writing">Content Writing</option>
+            <option value="Translation">Translation</option>
+            <option value="Image Handling">Image Handling</option>
+            <option value="App & Website Testing">App & Website Testing</option>
+            <option value="Creative Design">Creative Design</option>
+            <option value="Data Entry">Data Entry</option>
+            <option value="SEO & Marketing">SEO & Marketing</option>
+            <option value="Survey & Feedback">Survey & Feedback</option>
           </select>
+          {errors.category && <p className="text-red-500 mt-1">{errors.category.message}</p>}
         </div>
 
-        {/* Image Upload */}
+        {/* Image Upload (Optional) */}
         <div className="lg:col-span-2">
-          <label className="block mb-1 font-medium">
-            Upload Task Image 
-          </label>
+          <label className="block mb-1 font-medium">Upload Task Image</label>
           <input
             type="file"
             accept="image/*"

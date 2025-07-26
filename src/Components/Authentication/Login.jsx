@@ -1,47 +1,67 @@
 import React, { use } from 'react';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import loginimg from '/Assets/loginimg.jpg'
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
 import Social from './Social';
 import { useNavigate } from 'react-router';
+import useAxiosSecure from '../Sharedpages/useAxiosSecure';
+import axios from 'axios';
 const Login = () => {
+  const axiosSecure=useAxiosSecure()
    const navigate=useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm();
-const {signin,user,setUser}=use(AuthContext)
+const {signin,user,setUser,setLoad}=use(AuthContext)
   const onSubmit = (data) => {
   const { email, password } = data;
 
   signin(email, password)
-    .then((res) => {
-      setUser(res.user);
-      Swal.fire({
-        icon: 'success',
-        title: 'Login Successful!',
-        text: `Welcome back, ${res.user.displayName || 'User'} 👋`,
-        confirmButtonColor: '#0ea5e9',
-      });
-       navigate('/dashboard')
-    })
-    .catch((err) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Login Failed!',
-        text: err.message || 'Something went wrong',
-        confirmButtonColor: '#ef4444',
-      });
+  .then(async (res) => {
+    const idToken = await res.user.getIdToken();
+    const res1 = await axios.get(`http://localhost:5000/users?email=${res.user?.email}`, {
+      headers: { Authorization: `Bearer ${idToken}` },
     });
+
+    const userInfo = res1.data; // ✅ use directly here
+
+    setUser(userInfo); // still set it for global use
+    setLoad(false);
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Login Successful!',
+      text: `Welcome back, ${res.user.displayName || 'User'} 👋`,
+      confirmButtonColor: '#0ea5e9',
+    });
+
+    if (userInfo.role === 'Admin') {
+      navigate('/dashboard/adminhome');
+    } else if (userInfo.role === 'Buyer') {
+      navigate('/dashboard/buyerhome');
+    } else {
+      navigate('/dashboard/workerhome');
+    }
+  })
+  .catch((err) => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Failed!',
+      text: err.message || 'Something went wrong',
+      confirmButtonColor: '#ef4444',
+    });
+  });
+
 };
 
 
   return (
-    <div style={{ backgroundColor: '#ccf5ef' }} className='min-h-screen flex items-center justify-center '>
+    <div style={{ backgroundColor: '#ccf5ef' }} className=' flex items-center justify-center overflow-y-hidden h-full border-2 border-red-200 '>
     <section
-      className="w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center h-screen "
+      className="w-5/6 mx-auto flex flex-col lg:flex-row items-center justify-center  "
       
     >
       {/* Left side image */}
-      <div className="max-w-[400px] lg:w-1/2 mb-10 lg:mb-0">
+      <div className="hidden lg:flex max-w-[400px] lg:w-1/2 mb-10 lg:mb-0">
         <img
           src={loginimg} // Replace with a better micro-tasking-related image if needed
           alt="Task Image"

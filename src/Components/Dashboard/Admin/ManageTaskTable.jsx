@@ -1,9 +1,11 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import del from '/Assets/delete.png'
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 const ManageTaskTable = ({index,da,data,setData}) => {
+   const axiosSecure = useAxiosSecure()
        const{
     name,
     user_email,
@@ -35,7 +37,7 @@ const handleDelete=(id)=>{
   confirmButtonText: "Yes, delete it!"
 }).then((result) => {
   if (result.isConfirmed) {
-    axiosinstance.delete(`/tasks?id=${id}`).
+    axiosSecure.delete(`/tasks?id=${id}`).
    then(res=>{
       const newdata=data.filter(dat=>dat._id!==id)
       setData(newdata)

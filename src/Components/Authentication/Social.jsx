@@ -1,52 +1,81 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
-import axiosinstance from '../Sharedpages/axiosinstance';
+
 import { useNavigate } from 'react-router';
+import useAxiosSecure from '../Sharedpages/useAxiosSecure';
 
 const Social = () => {
+   const axiosSecure = useAxiosSecure()
   const { gsignup, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handlegsignup = () => {
-    gsignup()
-      .then(async (res) => {
-        const guser = res.user;
-        const userInfo = {
-          name: guser.displayName,
-          email: guser.email,
-          role: 'Worker',
-          coin: 10,
-          photo: guser.photoURL,
-        };
+  gsignup()
+    .then(async (res) => {
+      const guser = res.user;
+      const email = guser.email;
 
-        try {
-          await axiosinstance.post('/users', userInfo);
-          setUser(userInfo);
+      try {
+        // Step 1: Check if user already exists
+        const response = await axiosSecure.get(`/users?email=${email}`);
+        const existingUser = response.data;
+
+        if (existingUser) {
+          // Step 2: User exists → Set user & redirect based on role
+          setUser(existingUser);
+
+          const redirectPath =
+            existingUser.role === 'Worker'
+              ? '/dashboard/workerhome'
+              : existingUser.role === 'Buyer'
+              ? '/dashboard/buyerhome'
+              : '/dashboard/adminhome';
+
           Swal.fire({
             icon: 'success',
             title: 'Login Successful!',
-            text: `Welcome back, ${guser.displayName || 'User'} 👋`,
+            text: `Welcome back, ${existingUser.name || 'User'} 👋`,
             confirmButtonColor: '#0ea5e9',
-          }).then(() => navigate('/dashboard'));
-        } catch (err) {
+          }).then(() => navigate(redirectPath));
+        } else {
+          // Step 3: User doesn't exist → Register as Worker by default
+          const userInfo = {
+            name: guser.displayName,
+            email: guser.email,
+            role: 'Worker',
+            coin: 10,
+            photo: guser.photoURL,
+          };
+
+          await axiosSecure.post('/users', userInfo);
+          setUser(userInfo);
+
           Swal.fire({
-            icon: 'error',
-            title: 'Login Failed!',
-            text: err.message,
-            confirmButtonColor: '#ef4444',
-          });
+            icon: 'success',
+            title: 'Account Created!',
+            text: `Welcome, ${userInfo.name || 'User'} 🎉`,
+            confirmButtonColor: '#0ea5e9',
+          }).then(() => navigate('/dashboard/workerhome'));
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         Swal.fire({
           icon: 'error',
           title: 'Login Failed!',
           text: err.message,
           confirmButtonColor: '#ef4444',
         });
+      }
+    })
+    .catch((err) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed!',
+        text: err.message,
+        confirmButtonColor: '#ef4444',
       });
-  };
+    });
+};
 
   return (
     <button className="btn bg-white text-black border-[#e5e5e5] w-full" onClick={handlegsignup}>

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import axiosinstance from '../../Sharedpages/axiosinstance';
-import toast from 'react-hot-toast';
+
+import { toast } from 'react-toastify';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const HomeTable = ({ da, index, refetch }) => {
+   const axiosSecure = useAxiosSecure()
   const {
     _id,
     submission_details,
@@ -17,7 +19,6 @@ const HomeTable = ({ da, index, refetch }) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  
   const handleBackdropClick = (e) => {
     if (e.target.id === 'modal-backdrop') {
       setShowModal(false);
@@ -36,21 +37,27 @@ const HomeTable = ({ da, index, refetch }) => {
 
       if (!result.isConfirmed) return;
 
-      const res = await axiosinstance.patch(`/submission?id=${_id}&status=approve`, {
+      const res = await axiosSecure.patch(`/submission1?id=${_id}&status=approve`, {
         email: worker_email,
         coin: payable_amount,
       });
-            console.log(res.status)
+
       if (res.status === 200) {
-        toast.success('Successfully approved');
-        refetch();
+        toast('Successfully approved', {
+          type: 'success',
+          theme: 'colored'
+        });
+        refetch(); // Reload table data
         setShowModal(false);
       } else {
-        toast.error('Approve unsuccessful');
+        toast('Approve unsuccessful', {
+          type: 'error',
+          theme: 'colored'
+        });
       }
     } catch (error) {
       console.error('Approve error:', error.response || error);
-      toast.error('Approve unsuccessful');
+      toast('Approve unsuccessful', { type: 'error' });
     }
   };
 
@@ -65,16 +72,26 @@ const HomeTable = ({ da, index, refetch }) => {
 
       if (!result.isConfirmed) return;
 
-      const res = await axiosinstance.patch(`/submission?id=${_id}&status=rejected`, {
+      const res = await axiosSecure.patch(`/submission1?id=${_id}&status=rejected`, {
         task_id: task_id,
       });
 
       if (res.status === 200) {
-        toast.success('Successfully rejected');
-        refetch();
+       
+       refetch(); 
         setShowModal(false);
+         toast('Successfully rejected',{
+          type:'success'
+         });
+
+        // Step 2: Increase required_workers by 1
+        
+
+       
       } else {
-        toast.error('Rejection unsuccessful');
+        toast('Rejection unsuccessful',{
+          type:'error'
+        });
       }
     } catch (error) {
       console.error('Reject error:', error.response || error);
@@ -83,13 +100,13 @@ const HomeTable = ({ da, index, refetch }) => {
   };
 
   return (
-    <div>
+    <>
       <tr>
         <th>{index + 1}</th>
         <td>{worker_name}</td>
         <td>{task_title}</td>
         <td>{payable_amount}</td>
-        <td className="flex gap-2">
+        <td className="flex gap-2 flex-wrap">
           <button
             onClick={() => setShowModal(true)}
             className="btn btn-info btn-sm"
@@ -142,7 +159,7 @@ const HomeTable = ({ da, index, refetch }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

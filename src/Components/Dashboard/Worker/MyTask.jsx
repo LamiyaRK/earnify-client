@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import { AuthContext } from '../../../Context/AuthContext';
 import MyTasksTable from './MyTasksTable';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const MyTask = () => {
+     const axiosSecure = useAxiosSecure()
     const { user } = useContext(AuthContext);
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -11,11 +13,11 @@ const MyTask = () => {
 
     useEffect(() => {
         if (user?.email) {
-            axiosinstance.get(`/submission?email=${user.email}`)
+            axiosSecure.get(`/submission2?email=${user.email}`)
                 .then(res => setData(res.data))
                 .catch(err => console.log(err));
 
-            axiosinstance.get(`/user-preference?email=${user.email}`)
+            axiosSecure.get(`/user-preference?email=${user.email}`)
                 .then(res => {
                     if (res.data?.itemsPerPage) {
                         setItemsPerPage(res.data.itemsPerPage);
@@ -30,7 +32,7 @@ const MyTask = () => {
         setItemsPerPage(selected);
         setCurrentPage(1);
 
-        axiosinstance.post('/user-preference', {
+        axiosSecure.post('/user-preference', {
             email: user.email,
             itemsPerPage: selected
         });
@@ -50,10 +52,11 @@ const MyTask = () => {
     };
 
     return (
-        <div className='w-full bg-secondary'>
-            <h1 className='text-3xl font-semibold text-center py-20'>My Tasks</h1>
-
-            <div className='flex justify-end w-5/6 mx-auto mb-4'>
+        <div className='w-full bg-secondary h-full'>
+       {data.length>0?<div className='w-5/6 mx-auto py-20'>
+            <h1 className='text-3xl font-semibold text-center '>My Tasks</h1>
+           <p className='  text-center py-5 font-semibold opacity-70' > Your tasks at a glance.</p>
+            <div className='flex justify-end  mb-4 '>
                 <label className='mr-2 text-accent font-medium'>Items per page:</label>
                 <select onChange={handleItemsPerPageChange} value={itemsPerPage} className='border px-2 py-1 rounded'>
                     <option value={3}>3</option>
@@ -63,9 +66,9 @@ const MyTask = () => {
             </div>
 
             <div className="overflow-x-auto">
-                <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg">
+                <table className="table  bg-white p-10 rounded-lg border-2 border-accent">
                     <thead>
-                        <tr>
+                        <tr className='text-xl'>
                             <th className='text-accent'>Sl. no.</th>
                             <th className='text-accent'>Task</th>
                             <th className='text-accent'>Buyer</th>
@@ -111,6 +114,10 @@ const MyTask = () => {
                     Next
                 </button>
             </div>
+        </div>:
+        <div >
+        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold py-20 flex items-center justify-center'>No Submitted Tasks Yet.</p>
+      </div>} 
         </div>
     );
 };

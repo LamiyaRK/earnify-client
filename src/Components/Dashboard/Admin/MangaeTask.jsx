@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import ManageTaskTable from './ManageTaskTable';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const MangaeTask = () => {
+   const axiosSecure = useAxiosSecure()
      const [data,setData]=useState([])
     useEffect(()=>{
-        axiosinstance.get('/tasks')
+        axiosSecure.get('/tasks')
         .then(res=>{ 
             setData(res.data)     
 
@@ -15,12 +17,13 @@ const MangaeTask = () => {
     },[])
     return (
         <div className='w-full bg-secondary pb-20'>
+        <div className='w-5/6 mx-auto'>
          <h1 className='text-3xl font-semibold text-center  py-20'>Manage Tasks</h1>
             <div className="overflow-x-auto">
-  <table className="table w-5/6 mx-auto  bg-white p-10 rounded-lg">
+  <table className="table   bg-white p-10 rounded-lg border-2 border-accent">
     {/* head */}
-    <thead className=' '>
-      <tr>
+    <thead >
+      <tr className='text-xl '>
         <th className='text-accent'>
         Sl. no.
         </th>
@@ -41,6 +44,7 @@ const MangaeTask = () => {
    
   </table>
 </div>
+        </div>
         </div>
     );
 };

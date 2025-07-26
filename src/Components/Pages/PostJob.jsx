@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import side1 from '/Assets/side1.jpg'
 import { IoCheckmarkSharp } from "react-icons/io5";
-import axiosinstance from '../Sharedpages/axiosinstance';
+
 import { Link } from 'react-router';
+import useAxiosSecure from '../Sharedpages/useAxiosSecure';
 const PostJob = () => {
+   const axiosSecure = useAxiosSecure()
   const [data,setData]=useState([])
   useEffect(()=>{
-      axiosinstance.get(`users?role=Worker`)
+      axiosSecure.get(`users?role=Worker`)
         .then(res=>setData(res.data))
         .catch(err=>console.log(err))
   },[])

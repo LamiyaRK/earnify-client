@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axiosinstance from '../Sharedpages/axiosinstance';
+
 import FeatureCard from './FeatureCard';
+import useAxiosSecure from '../Sharedpages/useAxiosSecure';
 
 const Featuredjobs = () => {
+     const axiosSecure = useAxiosSecure()
     const [data,setData]=useState([])
     useEffect(()=>{
-        axiosinstance.get('/tasks3')
+        axiosSecure.get('/tasks3')
         .then(res=>setData(res.data))
         .catch(err=>console.log(err))
     },[])

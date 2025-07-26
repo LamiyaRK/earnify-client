@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { FaClock } from 'react-icons/fa6';
-import axiosinstance from '../../Sharedpages/axiosinstance';
+
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const AdminHomeTable = ({da,index,setData}) => {
+   const axiosSecure = useAxiosSecure()
     const {worker_name,
 withdrawal_amount,
 account_number,
@@ -16,10 +18,10 @@ withdrawal_coin
 
 
 const handleStatus = () => {
-  axiosinstance.patch(`/withdraw?id=${_id}`)
+  axiosSecure.patch(`/withdraw?id=${_id}`)
     .then((res) => {
       
-      axiosinstance
+      axiosSecure
         .patch(`/users`, { email: worker_email, addcoin: -withdrawal_coin })
         .then((res1) => {
          Swal.fire({
