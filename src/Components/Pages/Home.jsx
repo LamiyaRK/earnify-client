@@ -5,6 +5,7 @@ import PostJob from './PostJob';
 import ForApplicants from './ForApplicants';
 import Popularcat from './Popularcat';
 import Featuredjobs from './Featuredjobs';
+import Workers from './Workers';
 
 const Home = () => {
 
@@ -16,6 +17,7 @@ const Home = () => {
            
             <ForApplicants></ForApplicants>
             <Featuredjobs></Featuredjobs>
+            <Workers></Workers>
             <Review></Review>
             
         </div>
