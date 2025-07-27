@@ -185,13 +185,14 @@ const PostTask = () => {
 
         {/* Submission Info (Optional) */}
         <div>
-          <label className="block mb-1 font-medium">Submission Info</label>
+          <label className="block mb-1 font-medium">Submission Info<span className="text-red-500">*</span></label>
           <input
             type="text"
-            {...register('submission_info')}
+            {...register('submission_info', { required: 'Submission info is required' })}
             placeholder="e.g. Screenshot or proof"
             className="input input-bordered w-full h-12 bg-secondary text-base"
           />
+           {errors.submission_info && <p className="text-red-500 mt-1">{errors.submission_info.message}</p>}
         </div>
 
         {/* Category */}
