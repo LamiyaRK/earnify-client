@@ -1,6 +1,6 @@
 import React, { use } from 'react';
-import del from '/Assets/delete.png'
-import edi from '/Assets/edit.png'
+import del from '/assets/delete.png'
+import edi from '/assets/edit.png'
 import { Link, NavLink } from 'react-router';
 
 import Swal from 'sweetalert2';

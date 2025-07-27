@@ -10,7 +10,7 @@ const Errorpage = () => {
                Back To Home
             </div>
        </Link> 
-            <img src='/Assets/error.jpg' className='h-screen border-2  object-cover object-center w-full'></img>
+            <img src='/assets/error.jpg' className='h-screen border-2  object-cover object-center w-full'></img>
             
         </div>
         </div>

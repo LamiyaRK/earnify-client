@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import { set, useForm } from 'react-hook-form';
-import loginimg from '/Assets/loginimg.jpg'
+import loginimg from '/assets/loginimg.jpg'
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
 import Social from './Social';
@@ -18,7 +18,7 @@ const {signin,user,setUser,setLoad}=use(AuthContext)
   signin(email, password)
   .then(async (res) => {
     const idToken = await res.user.getIdToken();
-    const res1 = await axios.get(`http://localhost:5000/users?email=${res.user?.email}`, {
+    const res1 = await axios.get(`https://microjobs-server.vercel.app/users?email=${res.user?.email}`, {
       headers: { Authorization: `Bearer ${idToken}` },
     });
 

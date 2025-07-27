@@ -1,5 +1,5 @@
 import React from 'react';
-import customer from '/Assets/customer.jpg';
+import customer from '/assets/customer.jpg';
 import ReviewSlider from './ReviewSlider';
 
 const Review = () => {

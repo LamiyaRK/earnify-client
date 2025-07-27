@@ -21,6 +21,7 @@ import Withdraw from "../Dashboard/Worker/Withdraw";
 import Errorpage from "../Pages/Errorpage";
 import { AdminRoute, BuyerRoute, WorkerRoute } from "./PrivateRoute";
 import Unauthorized from "../Pages/Unauthorized";
+import AboutUs from "../Pages/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/about',
+        element: <AboutUs />,
       },
     ],
   },

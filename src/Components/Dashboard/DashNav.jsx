@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { IoIosNotifications } from 'react-icons/io';
 import { HiMenu } from 'react-icons/hi';
-import coin from '/Assets/coin.png';
-import user1 from '/Assets/user2.jpg';
+import coin from '/assets/coin.png';
+import user1 from '/assets/user2.jpg';
 import { Link } from 'react-router';
 
 import { AuthContext } from '../../Context/AuthContext';

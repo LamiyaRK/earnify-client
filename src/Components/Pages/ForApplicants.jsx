@@ -1,5 +1,5 @@
 import React from 'react';
-import side1 from '/Assets/worker.jpg'
+import side1 from '/assets/worker.jpg'
 import { IoCheckmarkSharp } from "react-icons/io5";
 const ForApplicants = () => {
     return (
@@ -20,7 +20,7 @@ const ForApplicants = () => {
                         <img src={side1} className='h-full w-full object-cover object-center rounded-lg'></img>
                     </div>
                     <div className='absolute -bottom-35 -left-50 hidden lg:flex'>
-                       <img src='/Assets/employers.png' ></img>
+                       <img src='/assets/employers.png' ></img>
                        </div>
                     </div>
                 </div>

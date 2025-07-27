@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
-import bannerbg from '/Assets/bg-slider.jpg';
+import bannerbg from '/assets/bg-slider.jpg';
 import { AuthContext } from '../../Context/AuthContext';
-import coin from '/Assets/coin.png';
+import coin from '/assets/coin.png';
 import Swal from 'sweetalert2';
-import user1 from '/Assets/user2.jpg';
+import user1 from '/assets/user2.jpg';
 
 const Nav = () => {
   const { user, logout } = React.useContext(AuthContext);

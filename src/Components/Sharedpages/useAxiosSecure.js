@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-import { useNavigate } from "react-router"; // ✅ useRouter should be from react-router-dom
-
+import { useNavigate } from "react-router"; 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://microjobs-server.vercel.app",
 });
 
 const useAxiosSecure = () => {
-  const { token, logout } = useContext(AuthContext); // ✅ useContext, not use
+  const { token, logout } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // ✅ REQUEST INTERCEPTOR
+   
     const requestInterceptor = axiosSecure.interceptors.request.use(
       (config) => {
         if (token) {
@@ -23,7 +22,7 @@ const useAxiosSecure = () => {
       (error) => Promise.reject(error)
     );
 
-    // ✅ RESPONSE INTERCEPTOR
+    
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => res,
       (error) => {
@@ -41,7 +40,7 @@ const useAxiosSecure = () => {
       }
     );
 
-    // ✅ Cleanup interceptors on unmount
+   
     return () => {
       axiosSecure.interceptors.request.eject(requestInterceptor);
       axiosSecure.interceptors.response.eject(responseInterceptor);

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import loginimg from '/Assets/loginimg.jpg';
+import loginimg from '/assets/loginimg.jpg';
 import { AuthContext } from '../../Context/AuthContext';
 import Swal from 'sweetalert2';
 import Social from './Social';

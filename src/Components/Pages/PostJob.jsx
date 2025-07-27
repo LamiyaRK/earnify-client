@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import side1 from '/Assets/side1.jpg'
+import side1 from '/assets/side1.jpg'
 import { IoCheckmarkSharp } from "react-icons/io5";
 
 import { Link } from 'react-router';

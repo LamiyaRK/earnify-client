@@ -1,6 +1,6 @@
 import React from 'react';
-import bannerbg from '/Assets/bg-slide12.png';
-import bannerbg1 from '/Assets/bg-slider.jpg';
+import bannerbg from '/assets/bg-slide12.png';
+import bannerbg1 from '/assets/bg-slider.jpg';
 const Slide2 = () => {
     return (
         <div  style={{ backgroundImage: `url(${bannerbg1})` }}

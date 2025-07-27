@@ -1,8 +1,8 @@
 import React, { useState,Fragment, } from 'react';
-import coinimg from '/Assets/starcoins.jpg';
-import coini from '/Assets/coin.png';
-import money from '/Assets/money.png';
-import star from "/Assets/star.png";
+import coinimg from '/assets/starcoins.jpg';
+import coini from '/assets/coin.png';
+import money from '/assets/money.png';
+import star from "/assets/star.png";
 import { Dialog, Transition } from '@headlessui/react'
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';

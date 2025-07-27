@@ -6,7 +6,7 @@ const CatCard = ({da,index}) => {
     return (
         <div className='group flex p-5 bg-white border rounded-lg border-gray-200 items-center gap-5 hover:shadow-sm '>
         <div className='bg-primary-content rounded-full p-3 '>
-          <img src={`/Assets/${index + 1}.png`} alt={`Asset ${index + 1}`} className='w-12 object-center object-cover ' />
+          <img src={`/assets/${index + 1}.png`} alt={`Asset ${index + 1}`} className='w-12 object-center object-cover ' />
           </div>
           <div >
           <p className='text-xl font-semibold group-hover:text-accent'>{_id}</p>

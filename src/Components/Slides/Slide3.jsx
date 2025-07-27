@@ -1,6 +1,6 @@
 import React from 'react';
-import bannerbg from '/Assets/bg-slider.jpg';
-import bannerbg1 from '/Assets/slider14.png';
+import bannerbg from '/assets/bg-slider.jpg';
+import bannerbg1 from '/assets/slider14.png';
 const Slide3 = () => {
     return (
         <div

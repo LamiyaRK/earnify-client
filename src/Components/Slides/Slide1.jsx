@@ -1,5 +1,5 @@
 import React from 'react';
-import bannerbg from '/Assets/bg-slider.jpg';
+import bannerbg from '/assets/bg-slider.jpg';
 
 const Slide1 = () => {
   return (
@@ -18,19 +18,19 @@ const Slide1 = () => {
       <div className="lg:flex hidden  md:flex-row items-center justify-center gap-5 lg:w-[45%]">
         <div className="h-[400px] w-[300px] rounded-2xl overflow-hidden">
           <img
-            src="/Assets/slide11.jpg"
+            src="/assets/slide11.jpg"
             className="h-full w-full object-center object-cover rounded-xl"
             alt="Slide 1"
           />
         </div>
         <div className="w-[300px]">
           <img
-            src="/Assets/slide13.jpg"
+            src="/assets/slide13.jpg"
             className="h-[250px] w-full object-center mb-5 object-cover rounded-xl"
             alt="Slide 2"
           />
           <img
-            src="/Assets/slide12.jpg"
+            src="/assets/slide12.jpg"
             className="h-[250px] w-full object-center object-cover rounded-xl"
             alt="Slide 3"
           />

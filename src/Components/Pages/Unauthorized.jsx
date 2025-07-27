@@ -10,7 +10,7 @@ const Unauthorized = () => {
                Back To Home
             </div>
        </Link> 
-            <img src='/Assets/unauthorized.jpg' className='h-screen border-2  object-cover object-center w-full'></img>
+            <img src='/assets/unauthorized.jpg' className='h-screen border-2  object-cover object-center w-full'></img>
             
         </div> 
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
-import del from '/Assets/delete.png'
+import del from '/assets/delete.png'
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 const ManageTaskTable = ({index,da,data,setData}) => {
    const axiosSecure = useAxiosSecure()
