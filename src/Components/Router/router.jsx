@@ -24,6 +24,7 @@ import Unauthorized from "../Pages/Unauthorized";
 import AboutUs from "../Pages/AboutUs";
 import Contact from "../Pages/Contact";
 import Faq from "../Pages/Faq";
+import Terms from "../Pages/Terms";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
         path: '/faq',
         element: <Faq />,
       },
+      {
+        path: '/terms',
+        element: <Terms />,
+      },
     ],
   },
   {
@@ -66,6 +71,7 @@ export const router = createBrowserRouter([
     path: "/*",
     element: <Errorpage />,
   },
+ 
   {
     path: "/dashboard",
     element: <Dashboard />,
