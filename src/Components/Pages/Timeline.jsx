@@ -6,7 +6,7 @@ const Timeline = ({data}) => {
         <div >
             <div className={`flex w-full flex-col ${index%2?"lg:flex-row":"lg:flex-row-reverse"} justify-between items-center gap-2`} >
   <div className="w-full lg:w-[45%]  text-neutral ">
-    <p className='text-3xl font-medium mb-4 text-secondary' >-{year}</p>
+    <p className='text-3xl font-medium mb-4 text-accent' >-{year}</p>
      <p className='text-3xl font-semibold mb-10'>{title}</p>
       <p className='font-medium opacity-80'>{description}</p>
   </div>

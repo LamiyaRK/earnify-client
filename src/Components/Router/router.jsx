@@ -22,6 +22,8 @@ import Errorpage from "../Pages/Errorpage";
 import { AdminRoute, BuyerRoute, WorkerRoute } from "./PrivateRoute";
 import Unauthorized from "../Pages/Unauthorized";
 import AboutUs from "../Pages/AboutUs";
+import Contact from "../Pages/Contact";
+import Faq from "../Pages/Faq";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         element: <AboutUs />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
+      },
+      {
+        path: '/faq',
+        element: <Faq />,
       },
     ],
   },

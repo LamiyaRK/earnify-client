@@ -37,8 +37,8 @@ const Footer = () => {
     {listbuyer}
 </div>
 <div className='space-y-2'>
- <p className='text-xl font-medium'>About Us</p>
-<p className=' font-medium'>About Us</p>
+<p className='text-xl font-medium'>About Us</p>
+ <NavLink to='/about'><p className=' font-medium'>About Us</p></NavLink>
 <p className=' font-medium'>Contact Us</p>
 <p className=' font-medium'>Terms</p>
 <p className=' font-medium'>FAQ</p>

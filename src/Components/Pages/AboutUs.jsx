@@ -9,7 +9,7 @@ const AboutUs = () => {
     title: "The Idea Was Born",
     description:
       "While exploring global freelancing trends, we noticed a gap in accessible platforms for micro-tasking. That’s when the concept for our platform—where anyone could earn by completing simple tasks—was born.",
-    image: "../../../public/assets/",
+    image: "/assets/about1.jpg",
   },
   {
     index: 2,
@@ -17,7 +17,7 @@ const AboutUs = () => {
     title: "Laying the Groundwork",
     description:
       "We began development with a strong focus on user roles, coin-based payment logic, and fair earning policies. Technologies like React, Firebase, MongoDB, and Node.js formed our core tech stack.",
-    image: "/about2.jpg",
+    image: "/assets/about2.jpg",
   },
   {
     index: 3,
@@ -25,7 +25,7 @@ const AboutUs = () => {
     title: "Shaping the Experience",
     description:
       "We added advanced features like role-based dashboards, secure Stripe payments, a notification system, and a polished UX inspired by leading micro-task platforms. Our community began to grow rapidly.",
-    image: "/about3.jpg",
+    image: "/assets/about3.jpg",
   },
   {
     index: 4,
@@ -33,7 +33,7 @@ const AboutUs = () => {
     title: "Going Public",
     description:
       "With a powerful set of features, real-time notifications, and a rewarding experience for both Workers and Buyers, our platform officially launched. But this is just the beginning.",
-    image: "/about4.jpg",
+    image: "/assets/about4.jpg",
   },
 ];
 
@@ -43,7 +43,7 @@ const AboutUs = () => {
          <div className='flex lg:flex-row flex-col-reverse justify-between mb-[120px] inset-0 lg:h-[1000px] text-neutral'>
          <div className='lg:w-[40%] text-lg space-y-6'>
          <div className='space-y-6'>
-            <h2 className='text-xl mb-2 text-secondary font-semibold'> — About Earnify</h2>
+            <h2 className='text-xl mb-2 text-accent font-semibold'> — About Earnify</h2>
             <h1 className='text-4xl  text-neutral mb-10'>Empowering Micro-Workers, One Task at a Time</h1>
            
            
@@ -57,14 +57,14 @@ const AboutUs = () => {
         </div>
         <div className='w-[300px] sm:w-[600px]  relative inset-0  h-[600px] sm:h-[1000px] mx-auto'>
         <div className='flex justify-end'>
-            <img src='/aboutpat.jpg' className='h-[250px] w-[200px] sm:h-[400px] sm:w-[300px] object-center object-cover   '></img>
+            <img src='/assets/aboutpat.jpg' className='h-[250px] w-[200px] sm:h-[400px] sm:w-[300px] object-center object-cover   '></img>
         </div>
          <div className='absolute top-25 lg:top-50 shadow-2xl'>
-          <img src='/aboutban.jpg' className='h-[400px] sm:h-[700px] w-[250px] sm:w-[500px] object-center object-cover shadow-2xl shadow-black z-10'></img>
+          <img src='/assets/aboutban.jpg' className='h-[400px] sm:h-[700px] w-[250px] sm:w-[500px] object-center object-cover shadow-2xl shadow-black z-10'></img>
           </div>
         </div>
           </div>
-       <p className='font-semibold text-xl text-center mb-4 text-secondary '>Timeline</p>
+       <p className='font-semibold text-xl text-center mb-4 text-accent '>Timeline</p>
        <h1 className='text-4xl  text-neutral mb-10 text-center'>Our History</h1>
            
         <div >
