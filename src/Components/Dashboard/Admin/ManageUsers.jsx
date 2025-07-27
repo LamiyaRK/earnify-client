@@ -2,24 +2,27 @@ import React, { useEffect, useState } from 'react';
 
 import ManageUsersTable from './ManageUsersTable';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
-
+import Spinner from '../../Router/Spinner';
 const ManageUsers = () => {
+  const [loading, setLoading] = useState(true); 
   const [data, setData] = useState([]);
  const axiosSecure = useAxiosSecure()
   const refetch = () => {
     axiosSecure.get('/users3')
       .then(res => {
         setData(res.data);
+        setLoading(false);
       })
       .catch(err => {
         console.error('Error fetching users:', err);
+        setLoading(false);
       });
   };
 
   useEffect(() => {
     refetch();
   }, []);
-
+if(loading) return <Spinner/>
   return (
     <div className="w-full bg-secondary pb-20">
     <div className='w-5/6 mx-auto'>

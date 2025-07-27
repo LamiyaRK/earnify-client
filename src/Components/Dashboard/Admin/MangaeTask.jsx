@@ -2,19 +2,23 @@ import React, { useEffect, useState } from 'react';
 
 import ManageTaskTable from './ManageTaskTable';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
-
+import Spinner from '../../Router/Spinner';
 const MangaeTask = () => {
    const axiosSecure = useAxiosSecure()
      const [data,setData]=useState([])
+     const [loading, setLoading] = useState(true); 
     useEffect(()=>{
         axiosSecure.get('/tasks')
         .then(res=>{ 
-            setData(res.data)     
+            setData(res.data) 
+             setLoading(false);    
 
         }).then(err=>{
             console.log(err)
+             setLoading(false);
         })
     },[])
+     if(loading) return <Spinner/>
     return (
         <div className='w-full bg-secondary pb-20'>
         <div className='w-5/6 mx-auto'>

@@ -3,19 +3,23 @@ import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
 import PayCard from './PayCard';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
-
+import Spinner from '../../Router/Spinner';
 const PaymentHistory = () => {
    const axiosSecure = useAxiosSecure()
     const {user}=use(AuthContext)
     const [data,setData]=useState([])
+    const [loading, setLoading] = useState(true); 
     useEffect(()=>{
         axiosSecure.get(`/orders1?email=${user?.email}`)
         .then(res=>{
             setData(res.data)
+            setLoading(false);
         }).catch(err=>{
             console.log(err)
+            setLoading(false);
         })
     },[user?.email])
+     if(loading) return <Spinner/>
     return (
         <div className='w-full bg-secondary h-full'>
         <h1 className='text-3xl font-semibold text-center  pt-20'>Payment History</h1>

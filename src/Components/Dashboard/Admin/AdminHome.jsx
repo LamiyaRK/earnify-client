@@ -1,11 +1,12 @@
 import React, { use, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
-
+import Spinner from '../../Router/Spinner';
 import { FaClock, FaCoins, FaDollarSign, FaUser, FaUsersRectangle } from "react-icons/fa6";
 import AdminHomeTable from './AdminHomeTable';
 import { ToastContainer } from 'react-toastify';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 const AdminHome = () => {
+   const [loading, setLoading] = useState(true);
    const axiosSecure = useAxiosSecure()
     const {user}=use(AuthContext)
     const [buyer,setBuyer]=useState(0)
@@ -32,11 +33,14 @@ axiosSecure.get('/totaldollars')
 .catch(err=>console.log(err))
 
 axiosSecure.get('/withdraw')
-.then(res=>setData(res.data))
-.catch(err=>console.log(err))
+.then(res=>{setData(res.data)
+setLoading(false) })
+.catch(err=>{console.log(err)
+  setLoading(false); 
+})
 }, []);
 
-    //console.log(buyer,worker)
+   if(loading) return <Spinner/>
     return (
         <div className='w-full'>
              <div className='grid md:grid-cols-2 2xl:grid-cols-4 gap-5 w-5/6 mx-auto my-20 '>

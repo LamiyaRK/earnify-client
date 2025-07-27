@@ -5,20 +5,26 @@ import { AuthContext } from '../../../Context/AuthContext';
 import MyTaskTable from './MyTaskTable';
 import { LineChart } from 'lucide-react';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
+import Spinner from '../../Router/Spinner';
 
 const Mytasks = () => {
    const axiosSecure = useAxiosSecure()
     const {user}=use(AuthContext)
     const [data,setData]=useState([]);
+    const [loading, setLoading] = useState(true); 
     useEffect(()=>{
            axiosSecure.get(`/tasks1?email=${user?.email}`)
            .then(res=>{
-            setData(res.data)
+            {setData(res.data)
+               setLoading(false);
+            }
            }).catch(err=>{
-            console.log(err)
+            {console.log(err)
+               setLoading(false);
+            }
            })
     },[user?.email])
- 
+  if(loading) return <Spinner/>
     return (
         <div className='w-full bg-secondary h-full '>
          <h1 className='text-3xl font-semibold text-center  pt-20'>My Tasks</h1>

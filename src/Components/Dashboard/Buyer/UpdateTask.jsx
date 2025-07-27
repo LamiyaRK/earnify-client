@@ -5,8 +5,9 @@ import { AuthContext } from '../../../Context/AuthContext';
 import { useParams, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
-
+import Spinner from '../../Router/Spinner';
 const UpdateTask = () => {
+  const [loading, setLoading] = useState(true); 
    const axiosSecure = useAxiosSecure()
   const { register, handleSubmit, reset, formState: { errors }, } = useForm();
   const [imageUrl, setImageUrl] = useState('');
@@ -23,6 +24,7 @@ const UpdateTask = () => {
     .then(res => {
       const fetchedData = res.data;
       setData(fetchedData);
+       setLoading(false);
       reset(fetchedData);
       // Only set image URL if it exists and no new image has been selected yet
       if (!imageUrl && fetchedData.task_image_url) {
@@ -31,6 +33,7 @@ const UpdateTask = () => {
     })
     .catch(err => {
       console.log("Data not fetched", err);
+       setLoading(false);
     });
 }, [id, reset]);
 
@@ -114,7 +117,7 @@ const UpdateTask = () => {
     task_image_url: imageUrl,
     user_email: user?.email,
   };
-
+ 
   const updateTask = () => {
     axiosSecure.put(`/tasks?id=${id}`, taskData)
       .then(() => {
@@ -162,7 +165,7 @@ const UpdateTask = () => {
     updateTask();
   }
 };
-
+if(loading) return <Spinner/>
   return (
     <div className='bg-secondary w-full h-full pb-20'>
   <h1 className='text-3xl font-semibold text-center py-20'>Update Task</h1>

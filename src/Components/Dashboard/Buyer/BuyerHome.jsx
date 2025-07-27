@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-
+import Spinner from '../../Router/Spinner';
 import { AuthContext } from '../../../Context/AuthContext';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -7,6 +7,7 @@ import HomeTable from './HomeTable';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const BuyerHome = () => {
+  const [loading, setLoading] = useState(true); 
    const axiosSecure = useAxiosSecure()
   const { user } = useContext(AuthContext);
   const [workers, setWorkers] = useState(0);
@@ -42,15 +43,19 @@ const fetchSubmissions = () => {
     axiosSecure(`/total-payment?email=${user?.email}`)
       .then(res => {
         setTotalPayment(res.data.totalPayment);
+        
       })
       .catch(err => console.log(err));
       axiosSecure(`/submission1?email=${user?.email}&status=pending`)
       .then(res => {
         setData(res.data);
+        setLoading(false);
       })
-      .catch(err => console.log(err));
+      .catch(err => {console.log(err)
+        setLoading(false);
+      });
   }, [user?.email]);
-
+ if(loading) return <Spinner/>
   const cards = [
     {
       label: 'Pending tasks',
