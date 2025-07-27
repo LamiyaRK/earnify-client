@@ -32,14 +32,14 @@ const Nav = () => {
     <>
       <p><NavLink to="/login"><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Login</button></NavLink></p>
       <p><NavLink to="/register"><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Register</button></NavLink></p>
-      <p><NavLink><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Join as Developer</button></NavLink></p>
+      <p><a href='https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-LamiyaRK' target='_blank'><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Join as Developer</button></a></p>
     </>
   );
 
   const list1 = (
     <>
      
-      <p><NavLink><button className="btn btn-neutral py-6 px-6 rounded-full">Join as Developer</button></NavLink></p>
+      <p><a href='https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-LamiyaRK' target='_blank'><button className="btn btn-neutral py-6 px-6 rounded-full">Join as Developer</button></a></p>
       <p><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black" onClick={handlelogout}>Log out</button></p>
     </>
   );
@@ -131,9 +131,7 @@ const Nav = () => {
     )}
   </li>
 
-  <li>
-    <NavLink to="/join-as-developer" className="text-lg font-semibold">Join as Developer</NavLink>
-  </li>
+  <li><a href='https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-LamiyaRK' target='_blank'>Join as Developer</a></li>
 
   <li>
     <button onClick={handlelogout} className="text-lg font-semibold text-red-600">Logout</button>
@@ -144,7 +142,7 @@ const Nav = () => {
               <>
                 <li><NavLink to="/login">Login</NavLink></li>
                 <li><NavLink to="/register">Register</NavLink></li>
-                <li><NavLink>Join as Developer</NavLink></li>
+                <li><a href='https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-LamiyaRK' target='_blank'>Join as Developer</a></li>
               </>
             )}
           </ul>
