@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router';
-
+import Spinner from '../../Router/Spinner';
 import { Image } from 'lucide-react'; // or use any icon
 import { AuthContext } from '../../../Context/AuthContext';
 import { toast } from 'react-toastify';
@@ -15,12 +15,16 @@ const TaskDetails = () => {
   const fileInputRef = useRef();
   const { user } = useContext(AuthContext);
 const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
-  // Fetch task details
+ const [loading, setLoading] = useState(true); 
   useEffect(() => {
     axiosSecure
       .get(`/tasks2?id=${id}`)
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {setData(res.data)
+        setLoading(false);
+      })
+      .catch((err) => {console.log(err)
+        setLoading(false);
+      });
   }, [id]);
 
   const {
@@ -100,7 +104,7 @@ const imgbbKey = import.meta.env.VITE_IMGBB_KEY;
       toast('Submission failed!', { type: 'error', theme: 'colored' });
     }
   };
-
+if(loading) return <Spinner/>
   return (
     <div className="px-10 py-10 space-y-10 mx-auto w-full">
       <div className="flex flex-col md:flex-row gap-10 text-sm justify-center">

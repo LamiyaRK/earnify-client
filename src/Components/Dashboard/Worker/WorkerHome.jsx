@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from 'react';
-
+import Spinner from '../../Router/Spinner';
 import { AuthContext } from '../../../Context/AuthContext';
 import { FaClock, FaDollarSign } from 'react-icons/fa';
 import { CiBoxList } from 'react-icons/ci';
@@ -13,6 +13,7 @@ const WorkerHome = () => {
   const [psubmission,setPsubmission]=useState(0);
   const [tpayment,setTpayment]=useState(0);
   const [data,setData]=useState([])
+   const [loading, setLoading] = useState(true); 
     useEffect(()=>{
         axiosSecure(`/submission2?email=${user?.email}`)
         .then(res=>setTsubmission(res.data.length))
@@ -24,9 +25,14 @@ const WorkerHome = () => {
         .then(res=>setTpayment(res.data.totalPayed))
         .catch(err=>console.log(err))
         axiosSecure(`/submission2?workermail=${user?.email}&status=approve`)
-        .then(res=>setData(res.data))
-        .catch(err=>console.log(err))
+        .then(res=>{setData(res.data)
+          setLoading(false);  
+        })
+        .catch(err=>{console.log(err)
+          setLoading(false);  
+        })
     },[user?.email])
+    if(loading) return <Spinner/>
     return (
       <div className='w-full bg-secondary h-full'>
         <div className='w-5/6 mx-auto py-20'>

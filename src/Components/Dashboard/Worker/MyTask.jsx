@@ -3,19 +3,23 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
 import MyTasksTable from './MyTasksTable';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
-
+import Spinner from '../../Router/Spinner';
 const MyTask = () => {
      const axiosSecure = useAxiosSecure()
     const { user } = useContext(AuthContext);
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(3);
-
+ const [loading, setLoading] = useState(true); 
     useEffect(() => {
         if (user?.email) {
             axiosSecure.get(`/submission2?email=${user.email}`)
-                .then(res => setData(res.data))
-                .catch(err => console.log(err));
+                .then(res => {setData(res.data)
+                    setLoading(false);
+                })
+                .catch(err => {console.log(err)
+                    setLoading(false);
+                });
 
             axiosSecure.get(`/user-preference?email=${user.email}`)
                 .then(res => {
@@ -50,7 +54,7 @@ const MyTask = () => {
     const handleNextPage = () => {
         if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
-
+if(loading) return <Spinner/>
     return (
         <div className='w-full bg-secondary h-full'>
        {data.length>0?<div className='w-5/6 mx-auto py-20'>

@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
-
+import Spinner from '../../Router/Spinner';
 import TaskCard from './TaskCard';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
 
 const TaskList = () => {
+     const [loading, setLoading] = useState(true); 
      const axiosSecure = useAxiosSecure()
     const [data,setData]=useState([])
     useEffect(()=>{
         axiosSecure.get('/tasks2')
         .then(res=>{ 
          
-            setData(res.data)     
+            setData(res.data)   
+            setLoading(false);  
 
         }).then(err=>{
             console.log(err)
+            setLoading(false);
         })
     },[])
+    if(loading) return <Spinner/>
     return (
         <div className='bg-secondary py-20 w-full'>
          <h1 className='text-3xl font-semibold text-center '>Available Tasks</h1>
