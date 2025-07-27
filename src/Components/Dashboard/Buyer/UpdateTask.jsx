@@ -26,7 +26,7 @@ const UpdateTask = () => {
       setData(fetchedData);
        setLoading(false);
       reset(fetchedData);
-      // Only set image URL if it exists and no new image has been selected yet
+     
       if (!imageUrl && fetchedData.task_image_url) {
         setImageUrl(fetchedData.task_image_url);
       }
