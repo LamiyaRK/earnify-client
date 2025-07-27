@@ -12,24 +12,24 @@ import { AuthContext } from '../../Context/AuthContext';
 const Sidebar = ({ isOpen, closeSidebar }) => {
     const {user}=use(AuthContext)
     const listworker = <>
-        <NavLink to='/dashboard/workerhome'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><IoHomeOutline size={24} />Home</p></NavLink>
-        <NavLink to='/dashboard/tasklist'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><LuClipboardList size={24} />Task List</p></NavLink>
-        <NavLink to='/dashboard/mysubmissions'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><LuListRestart size={24} />My Submissions</p></NavLink>
-        <NavLink to='/dashboard/withdraw'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><PiHandWithdraw size={24} />Withdrawals</p></NavLink>
+        <NavLink to='/dashboard/workerhome'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><IoHomeOutline size={24} />Home</p></NavLink>
+        <NavLink to='/dashboard/tasklist'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><LuClipboardList size={24} />Task List</p></NavLink>
+        <NavLink to='/dashboard/mysubmissions'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><LuListRestart size={24} />My Submissions</p></NavLink>
+        <NavLink to='/dashboard/withdraw'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><PiHandWithdraw size={24} />Withdrawals</p></NavLink>
     </>;
 
     const listbuyer = <>
-        <NavLink to='/dashboard/buyerhome'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><IoHomeOutline size={24} />Home</p></NavLink>
-        <NavLink to='/dashboard/addtask'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><FaPen size={24} />Add New Task</p></NavLink>
-        <NavLink to='/dashboard/mytasks'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><IoBriefcaseOutline size={24} />My Tasks</p></NavLink>
-        <NavLink to='/dashboard/purchasecoin'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><BiPurchaseTag size={24} />Purchase Coin</p></NavLink>
-        <NavLink to='/dashboard/paymenthistory'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><MdOutlinePlaylistAddCheck size={24} />Payment History</p></NavLink>
+        <NavLink to='/dashboard/buyerhome'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><IoHomeOutline size={24} />Home</p></NavLink>
+        <NavLink to='/dashboard/addtask'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><FaPen size={24} />Add New Task</p></NavLink>
+        <NavLink to='/dashboard/mytasks'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><IoBriefcaseOutline size={24} />My Tasks</p></NavLink>
+        <NavLink to='/dashboard/purchasecoin'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><BiPurchaseTag size={24} />Purchase Coin</p></NavLink>
+        <NavLink to='/dashboard/paymenthistory'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><MdOutlinePlaylistAddCheck size={24} />Payment History</p></NavLink>
     </>;
 
     const listadmin = <>
-        <NavLink to='/dashboard/adminhome'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><IoHomeOutline size={24} />Home</p></NavLink>
-        <NavLink to='/dashboard/manageusers'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><FaUsers size={24} />Manage Users</p></NavLink>
-        <NavLink to='/dashboard/managetasks'><p className='flex items-end gap-2 hover:bg-secondary p-4 rounded-lg opacity-70'><IoBriefcaseOutline size={24} />Manage Tasks</p></NavLink>
+        <NavLink to='/dashboard/adminhome'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><IoHomeOutline size={24} />Home</p></NavLink>
+        <NavLink to='/dashboard/manageusers'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><FaUsers size={24} />Manage Users</p></NavLink>
+        <NavLink to='/dashboard/managetasks'><p className='flex items-end gap-2 hover:bg-accent p-4 rounded-lg opacity-70'><IoBriefcaseOutline size={24} />Manage Tasks</p></NavLink>
     </>;
 
     return (
