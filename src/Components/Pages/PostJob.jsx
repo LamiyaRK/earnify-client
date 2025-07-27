@@ -4,14 +4,21 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 
 import { Link } from 'react-router';
 import useAxiosSecure from '../Sharedpages/useAxiosSecure';
+import Spinner from '../Router/Spinner';
 const PostJob = () => {
+  const [loading, setLoading] = useState(true); 
    const axiosSecure = useAxiosSecure()
   const [data,setData]=useState([])
   useEffect(()=>{
       axiosSecure.get(`users?role=Worker`)
-        .then(res=>setData(res.data))
-        .catch(err=>console.log(err))
+        .then(res=>{setData(res.data)
+           setLoading(false); 
+        })
+        .catch(err=>{console.log(err)
+           setLoading(false); 
+        })
   },[])
+  if(loading) return <Spinner/>
     return (
         <div className='flex flex-col  lg:flex-row  lg:justify-between  items-center gap-10 py-20 w-5/6 mx-auto'>
         <div data-aos="fade-right" data-aos-duration="1500" className='relative w-full lg:w-[40%]'>

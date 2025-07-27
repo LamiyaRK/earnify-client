@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../Sharedpages/useAxiosSecure';
 import { HiMiniArrowLongLeft,HiMiniArrowLongRight} from "react-icons/hi2";
+import Spinner from '../Router/Spinner';
+
 const Workers = () => {
   const axiosSecure = useAxiosSecure();
   const [data, setData] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 4;
-
+const [loading, setLoading] = useState(true); 
   useEffect(() => {
     axiosSecure
       .get(`/workers`)
       .then((res) => {
-        setData(res.data);
+        {setData(res.data);
+          setLoading(false); 
+        }
       })
       .catch((err) => {
-        console.log(err);
+        {console.log(err);
+          setLoading(false); 
+        }
       });
   }, []);
 
@@ -37,7 +43,7 @@ const Workers = () => {
   };
 
   const visibleData = getVisibleData();
-
+ if(loading) return <Spinner/>
   return (
     <div data-aos="fade-up" data-aos-duration="1500" className="w-full py-20 my-20">
       <h1 className="text-3xl font-semibold text-center">Our Most In-Demand Workers</h1>
