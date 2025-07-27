@@ -39,9 +39,9 @@ const Footer = () => {
 <div className='space-y-2'>
 <p className='text-xl font-medium'>About Us</p>
  <NavLink to='/about'><p className=' font-medium'>About Us</p></NavLink>
-<p className=' font-medium'>Contact Us</p>
-<p className=' font-medium'>Terms</p>
-<p className=' font-medium'>FAQ</p>
+<NavLink to='/contact'><p className=' font-medium'>Contact Us</p></NavLink>
+<NavLink to='/terms'><p className=' font-medium'>Terms</p></NavLink>
+<NavLink to='/faq'><p className=' font-medium'>FAQ</p></NavLink>
 </div>
         </div>
         <footer className="footer w-5/6 mx-auto sm:footer-horizontal bg-[#555555] pt-4 border-t  border-t-white items-center ">
