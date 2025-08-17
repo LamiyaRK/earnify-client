@@ -5,12 +5,15 @@ import { FaClock, FaCoins, FaDollarSign, FaUser, FaUsersRectangle } from "react-
 import AdminHomeTable from './AdminHomeTable';
 import { ToastContainer } from 'react-toastify';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
+
 const AdminHome = () => {
    const [loading, setLoading] = useState(true);
    const axiosSecure = useAxiosSecure()
     const {user}=use(AuthContext)
     const [buyer,setBuyer]=useState(0)
      const [worker,setWorker]=useState(0)
+     const [admin,setAdmin]=useState(0)
      const [tcoins,setTcoins]=useState(0)
      const [tdollars,setTdollars]=useState(0)
      const[data,setData]=useState([])
@@ -22,6 +25,9 @@ const AdminHome = () => {
 
   axiosSecure.get(`/users3?role=Worker`)
     .then(res => setWorker(res.data.length))
+    .catch(err => console.log(err));
+     axiosSecure.get(`/users3?role=Admin`)
+    .then(res => setAdmin(res.data.length))
     .catch(err => console.log(err));
 
   axiosSecure.get(`/totalcoins`)
@@ -73,6 +79,59 @@ setLoading(false) })
                                        </div>
                                     </div>
                                     </div>
+                                    {/* Charts Section */}
+<div className="grid md:grid-cols-2 gap-5 w-5/6 mx-auto my-10">
+
+  {/* Pie Chart: User Role Distribution */}
+  <div className="shadow-lg p-5 rounded-lg bg-white">
+    <h2 className='text-xl font-semibold mb-5 text-center'>User Role Distribution</h2>
+    <PieChart width={400} height={300} className='mx-auto'>
+      <Pie
+        data={[
+          { name: 'Buyers', value: buyer },
+          { name: 'Workers', value: worker },
+          { name: 'Admins', value: admin } // Adjust if you have multiple admins
+        ]}
+        dataKey="value"
+        nameKey="name"
+        cx="50%"
+        cy="50%"
+        outerRadius={100}
+        fill="#8884d8"
+        label
+      >
+        <Cell fill="#82ca9d" />
+        <Cell fill="#8884d8" />
+        <Cell fill="#ffc658" />
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
+  </div>
+
+  {/* Bar Chart: Total Coins vs Total Payments */}
+  <div className="shadow-lg p-5 rounded-lg bg-white">
+    <h2 className='text-xl font-semibold mb-5 text-center'>Coins vs Payments</h2>
+    <BarChart className='mx-auto'
+      width={400}
+      height={300}
+      data={[
+        { name: 'Total', Coins: tcoins, Payment: tdollars }
+      ]}
+      margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="Coins" fill="#82ca9d" />
+      <Bar dataKey="Payment" fill="#8884d8" />
+    </BarChart>
+  </div>
+
+</div>
+
                                     {data.length>0?
                                     
                                  
