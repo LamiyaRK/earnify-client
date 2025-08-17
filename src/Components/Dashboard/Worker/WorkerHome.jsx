@@ -5,6 +5,7 @@ import { FaClock, FaDollarSign } from 'react-icons/fa';
 import { CiBoxList } from 'react-icons/ci';
 import WorkerHomeTable from './WorkerHomeTable';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
+import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 const WorkerHome = () => {
    const axiosSecure = useAxiosSecure()
@@ -59,6 +60,57 @@ const WorkerHome = () => {
                </div>
             </div>
             </div>
+            <div className='grid md:grid-cols-2 gap-5 w-5/6 mx-auto mt-20'>
+
+  {/* Pie Chart: Submission Status */}
+  <div className="shadow-lg p-5 rounded-lg bg-white">
+    <h2 className='text-xl font-semibold mb-5 text-center'>Submission Status</h2>
+    <PieChart width={400} height={300} className='mx-auto'>
+      <Pie
+        data={[
+          { name: 'Approved', value: data.length },
+          { name: 'Pending', value: psubmission },
+          { name: 'Total', value: tsubmission }
+        ]}
+        dataKey="value"
+        nameKey="name"
+        cx="50%"
+        cy="50%"
+        outerRadius={100}
+        label
+      >
+        <Cell fill="#82ca9d" />
+        <Cell fill="#ffc658" />
+        <Cell fill="#8884d8" />
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
+  </div>
+
+  {/* Bar Chart: Earnings Overview */}
+  <div className="shadow-lg p-5 rounded-lg bg-white">
+    <h2 className='text-xl font-semibold mb-5 text-center'>Earnings Overview</h2>
+    <BarChart className='mx-auto'
+      width={400}
+      height={300}
+      data={[
+        { name: 'Earnings', Amount: tpayment },
+        { name: 'Submissions', Amount: tsubmission },
+        { name: 'Pending', Amount: psubmission }
+      ]}
+      margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="Amount" fill="#82ca9d" />
+    </BarChart>
+  </div>
+
+</div>
              {data.length>0?
              <div>
             <h1 className='text-3xl font-semibold text-center  pt-20'>Approved Tasks</h1>

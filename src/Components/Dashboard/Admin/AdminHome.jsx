@@ -80,7 +80,7 @@ setLoading(false) })
                                     </div>
                                     </div>
                                     {/* Charts Section */}
-<div className="grid md:grid-cols-2 gap-5 w-5/6 mx-auto my-10">
+<div className="grid md:grid-cols-2 gap-5 w-5/6 mx-auto mt-20">
 
   {/* Pie Chart: User Role Distribution */}
   <div className="shadow-lg p-5 rounded-lg bg-white">
@@ -159,7 +159,7 @@ setLoading(false) })
         </table>
       </div>:
       <div>
-        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold mb-20'>No Withdraw Requestes Available</p>
+        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold my-20'>No Withdraw Requestes Available</p>
       </div>}
             <ToastContainer></ToastContainer>                       
         </div>

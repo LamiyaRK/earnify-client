@@ -5,6 +5,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import HomeTable from './HomeTable';
 import useAxiosSecure from '../../Sharedpages/useAxiosSecure';
+import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
 
 const BuyerHome = () => {
   const [loading, setLoading] = useState(true); 
@@ -89,8 +90,8 @@ const fetchSubmissions = () => {
           <p className={`text-2xl font-medium  ${card.tailwindColor}`}>{card.label}</p>
            <p className="text-4xl font-bold ">{card.label === 'Total Payment' ? `$${card.value}` : card.value}</p>
             </div>
-          <div className="w-20 h-20">
-            <CircularProgressbar
+          <div className="w-20 h-20 mx-auto">
+            <CircularProgressbar className=''
               value={card.value}
               maxValue={card.max}
               text={`${card.label === 'Total Payment' ? '$' : ''}${card.value}`}
@@ -106,6 +107,47 @@ const fetchSubmissions = () => {
         </div>
       ))}
     </div>
+    <div className="w-5/6 mx-auto mt-20 grid md:grid-cols-2 gap-6">
+  {/* Pie Chart: Task Distribution */}
+  <div className="bg-white shadow-md rounded-xl p-5">
+    <h2 className="text-xl font-semibold text-center mb-4">Task Distribution</h2>
+    <PieChart width={400} height={300} className='mx-auto'>
+      <Pie 
+        data={[
+          { name: "Pending", value: workers },
+          { name: "Total", value: taskcount },
+        ]}
+        cx="50%"
+        cy="50%"
+        outerRadius={100}
+        label
+        dataKey="value"
+      >
+        <Cell fill="#4F46E5" />
+        <Cell fill="#059669" />
+      </Pie>
+      <Tooltip />
+      <Legend />
+    </PieChart>
+  </div>
+
+  {/* Bar Chart: Payment vs Tasks */}
+  <div className="bg-white shadow-md rounded-xl p-5">
+    <h2 className="text-xl font-semibold text-center mb-4">Payment Overview</h2>
+    <BarChart className='mx-auto' width={400} height={300} data={[
+      { name: "Total Tasks", value: taskcount },
+      { name: "Pending Tasks", value: workers },
+      { name: "Total Payment", value: totalPayment },
+    ]}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="value" fill="#D97706" />
+    </BarChart>
+  </div>
+</div>
     {data.length>0? 
     <div className="overflow-x-auto py-20 ">
         <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border-2  border-accent">
