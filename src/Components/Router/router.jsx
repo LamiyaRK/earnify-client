@@ -25,6 +25,7 @@ import AboutUs from "../Pages/AboutUs";
 import Contact from "../Pages/Contact";
 import Faq from "../Pages/Faq";
 import Terms from "../Pages/Terms";
+import ProfilePage from "../Dashboard/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -193,6 +194,10 @@ export const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      {
+        path:"/dashboard/profile",
+        element:<ProfilePage/>
+      }
     ],
   },
 ]);

@@ -12,7 +12,7 @@ const HomeLayout = () => {
    
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 30);
 
     return () => clearTimeout(timer);
   }, []);

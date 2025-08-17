@@ -30,9 +30,14 @@ const Nav = () => {
 
   const list = (
     <>
-      <p><NavLink to="/login"><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Login</button></NavLink></p>
-      <p><NavLink to="/register"><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Register</button></NavLink></p>
-      <p><a href='https://github.com/LamiyaRK/earnify-client' target='_blank'><button className="btn btn-neutral py-6 px-6 rounded-full hover:bg-transparent hover:text-black">Join as Developer</button></a></p>
+    <p><NavLink to="/">Home</NavLink></p>
+    <p><NavLink to="/about">About</NavLink></p>
+    <p><NavLink to="/contact">Contact</NavLink></p>
+    <p><NavLink to="/terms">Terms</NavLink></p>
+    <p><NavLink to="/faq">FAQs</NavLink></p>
+      <p><NavLink to="/login"><button className="btn btn-neutral ">Login/Register</button></NavLink></p>
+      
+     
     </>
   );
 
@@ -47,8 +52,9 @@ const Nav = () => {
   return (
     <div
       style={{ backgroundImage: `url(${bannerbg})` }}
-      className="navbar bg-black/10 shadow-sm py-4"
+      className='bg-black/10  py-4 sticky top-0 z-50'
     >
+    <div className="navbar  w-5/6 mx-auto">
       {/* START */}
       <div className="navbar-start">
         {/* Logo */}
@@ -94,7 +100,7 @@ const Nav = () => {
             </div>
           </div>
         )}
-        <div className="hidden lg:flex gap-2">
+        <div className="hidden lg:flex gap-2 items-center">
           {user ? list1 : list}
         </div>
 
@@ -148,6 +154,7 @@ const Nav = () => {
           </ul>
         </div>
       </div>
+    </div>
     </div>
   );
 };

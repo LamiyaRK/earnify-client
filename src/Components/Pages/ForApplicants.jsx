@@ -1,6 +1,7 @@
 import React from 'react';
 import side1 from '/assets/worker.jpg'
 import { IoCheckmarkSharp } from "react-icons/io5";
+import { Link } from 'react-router';
 const ForApplicants = () => {
     return (
          <div className='flex flex-col-reverse lg:flex-row  lg:justify-between items-center gap-10 py-20 w-5/6 mx-auto relative'>
@@ -13,7 +14,7 @@ const ForApplicants = () => {
                             <li className='flex items-center gap-2'><IoCheckmarkSharp  size={24}/>Get insights that guide your next move</li>
                              <li className='flex items-center gap-2'><IoCheckmarkSharp  size={24}/>Explore trusted companies with real reviews</li>
                         </ul>
-                        <button className='bg-accent btn text-white py-6 px-12 rounded-lg mt-6 hover:border-accent hover:bg-white hover:text-accent'>Get Started</button>
+                     <Link to='/dashboard/tasklist'><button className='bg-accent btn text-white py-6 px-12 rounded-lg mt-6 hover:border-accent hover:bg-white hover:text-accent'>Get Started</button></Link>   
                     </div>
                     <div  data-aos="fade-left" data-aos-duration="1500" className='relative w-full lg:w-[40%] '>
                     <div className='h-[500px] lg:w-[600px] '>
