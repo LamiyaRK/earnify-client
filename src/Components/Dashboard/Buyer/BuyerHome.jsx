@@ -83,7 +83,7 @@ const fetchSubmissions = () => {
 
   return (
     <div className='w-full bg-secondary h-full'>
-    <div className="p-6 grid lg:grid-cols-3 gap-6 w-5/6 mx-auto py-20">
+    <div className="p-6 grid lg:grid-cols-3 gap-6 w-5/6 mx-auto pt-20">
       {cards.map((card, idx) => (
         <div key={idx} className="bg-white shadow-md h-[150px] w-full rounded-xl px-6 py-4 flex items-center justify-between">
         <div>
@@ -150,7 +150,7 @@ const fetchSubmissions = () => {
 </div>
     {data.length>0? 
     <div className="overflow-x-auto py-20 ">
-        <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border-2  border-accent">
+        <table className="table w-5/6 mx-auto bg-white py-20 rounded-lg border-2  border-accent">
           {/* head */}
           <thead>
             <tr className='text-xl'>
