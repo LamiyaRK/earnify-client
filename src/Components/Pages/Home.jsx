@@ -6,6 +6,7 @@ import ForApplicants from './ForApplicants';
 import Popularcat from './Popularcat';
 import Featuredjobs from './Featuredjobs';
 import Workers from './Workers';
+import Process from './Process';
 
 const Home = () => {
 
@@ -18,6 +19,7 @@ const Home = () => {
             <ForApplicants></ForApplicants>
             <Featuredjobs></Featuredjobs>
             <Workers></Workers>
+            <Process></Process>
             <Review></Review>
             
         </div>

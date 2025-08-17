@@ -3,6 +3,7 @@ import useAxiosSecure from "../Sharedpages/useAxiosSecure";
 import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast"; // ✅ import toast
+import Spinner from "../Router/Spinner";
 
 const ProfilePage = () => {
   const axiosSecure = useAxiosSecure();
@@ -23,7 +24,7 @@ const ProfilePage = () => {
       .catch(err => console.error("Failed to fetch user:", err));
   }, [user?.email]);
 
-  if (!user1) return <div className="text-center py-10">Loading profile...</div>;
+  if (!user1) return <div className="text-center py-10"><Spinner/></div>;
 
   const handleChange = (e) => {
     setFormData(prev => ({
