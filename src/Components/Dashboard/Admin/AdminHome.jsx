@@ -78,7 +78,7 @@ setLoading(false) })
                                  
                                      <div className="overflow-x-auto">
                                      <h1 className='text-3xl font-semibold text-center pb-20'>Withdraw Requestes</h1>
-        <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border border-gray-100">
+        <table className="table w-5/6 mx-auto bg-white p-10 rounded-lg border border-gray-100 mb-20">
           {/* head */}
           <thead>
             <tr className='text-xl'>
@@ -100,7 +100,7 @@ setLoading(false) })
         </table>
       </div>:
       <div>
-        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold'>No Withdraw Requestes Available</p>
+        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold mb-20'>No Withdraw Requestes Available</p>
       </div>}
             <ToastContainer></ToastContainer>                       
         </div>

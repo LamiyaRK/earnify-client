@@ -1,5 +1,5 @@
 import React from 'react';
-import bannerbg from '/assets/bg-slider.jpg';
+import bannerbg from '/assets/bg-slider.webp';
 import bannerbg1 from '/assets/slider14.png';
 const Slide3 = () => {
     return (

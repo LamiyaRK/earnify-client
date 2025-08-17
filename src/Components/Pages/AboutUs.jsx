@@ -9,7 +9,7 @@ const AboutUs = () => {
     title: "The Idea Was Born",
     description:
       "While exploring global freelancing trends, we noticed a gap in accessible platforms for micro-tasking. That’s when the concept for our platform—where anyone could earn by completing simple tasks—was born.",
-    image: "/assets/about1.jpg",
+    image: "/assets/about1.webp",
   },
   {
     index: 2,
@@ -17,7 +17,7 @@ const AboutUs = () => {
     title: "Laying the Groundwork",
     description:
       "We began development with a strong focus on user roles, coin-based payment logic, and fair earning policies. Technologies like React, Firebase, MongoDB, and Node.js formed our core tech stack.",
-    image: "/assets/about2.jpg",
+    image: "/assets/about2.webp",
   },
   {
     index: 3,
@@ -25,7 +25,7 @@ const AboutUs = () => {
     title: "Shaping the Experience",
     description:
       "We added advanced features like role-based dashboards, secure Stripe payments, a notification system, and a polished UX inspired by leading micro-task platforms. Our community began to grow rapidly.",
-    image: "/assets/about3.jpg",
+    image: "/assets/about3.webp",
   },
   {
     index: 4,
@@ -33,7 +33,7 @@ const AboutUs = () => {
     title: "Going Public",
     description:
       "With a powerful set of features, real-time notifications, and a rewarding experience for both Workers and Buyers, our platform officially launched. But this is just the beginning.",
-    image: "/assets/about4.jpg",
+    image: "/assets/about4.webp",
   },
 ];
 
@@ -57,10 +57,10 @@ const AboutUs = () => {
         </div>
         <div className='w-[300px] sm:w-[600px]  relative inset-0  h-[600px] sm:h-[1000px] mx-auto'>
         <div className='flex justify-end'>
-            <img src='/assets/aboutpat.jpg' className='h-[250px] w-[200px] sm:h-[400px] sm:w-[300px] object-center object-cover   '></img>
+            <img src='/assets/aboutpat.webp' className='h-[250px] w-[200px] sm:h-[400px] sm:w-[300px] object-center object-cover   '></img>
         </div>
          <div className='absolute top-25 lg:top-50 shadow-2xl'>
-          <img src='/assets/aboutban.jpg' className='h-[400px] sm:h-[700px] w-[250px] sm:w-[500px] object-center object-cover shadow-2xl shadow-black z-10'></img>
+          <img src='/assets/aboutban.webp' className='h-[400px] sm:h-[700px] w-[250px] sm:w-[500px] object-center object-cover shadow-2xl shadow-black z-10'></img>
           </div>
         </div>
           </div>

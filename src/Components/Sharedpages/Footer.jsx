@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router';
 
 const Footer = () => {
@@ -51,13 +52,13 @@ const Footer = () => {
   </aside>
   <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
     <a href='https://github.com/LamiyaRK' target='_blank'>
-     <img src='./assets/git.png' className='h-10'></img>
+     <FaGithub size={30}/>
     </a>
     <a href='http://www.linkedin.com/in/lamiya-rahmankhan' target='_blank'>
-      <img src='./assets/ln.png' className='h-10'></img>
+      <FaLinkedin  size={30}/>
     </a>
     <a href='https://www.facebook.com/lamiya.khan.9887117/' target='_blank'>
-      <img src='./assets/fb.png' className='h-10'></img>
+      <FaFacebook size={30}/>
     </a>
   </nav>
 </footer>
