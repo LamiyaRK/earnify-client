@@ -171,7 +171,7 @@ const fetchSubmissions = () => {
         </table>
       </div>:
        <div >
-        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold pb-20'>No Tasks To Review</p>
+        <p className='w-5/6 mx-auto text-3xl text-center text-accent font-semibold py-20'>No Tasks To Review</p>
       </div>}
       
     
